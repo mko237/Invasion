@@ -19,8 +19,9 @@ namespace Invasion
         public static void Load(ContentManager content)
         {
             //Player = content.Load<Texture2D>(@"Art/Player"); dont include file exntension.
-            Planet = content.Load<Texture2D>(@"Art/Player");
+            Planet = content.Load<Texture2D>(@"Art/Planet");
             Ship = content.Load<Texture2D>(@"Art/Ship");
+
         }
     }
 }

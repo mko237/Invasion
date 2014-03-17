@@ -22,6 +22,7 @@ namespace Invasion
         public static GameRoot Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
+        public static Vector2 DisplaySize { get { return new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height); } }
        
 
         public GameRoot()
@@ -29,6 +30,11 @@ namespace Invasion
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             Instance = this;
+            
+            graphics.PreferredBackBufferWidth = (int)DisplaySize.X-50;
+            graphics.PreferredBackBufferHeight = (int)DisplaySize.Y -150;
+            
+
         }
 
         /// <summary>
