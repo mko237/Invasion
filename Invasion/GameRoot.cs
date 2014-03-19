@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -23,6 +25,8 @@ namespace Invasion
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
         public static Vector2 DisplaySize { get { return new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height); } }
+        //private static InputServer inputserver = new InputServer();
+        private static Thread ServerThread = new Thread(InputServer.StartListening);
        
 
         public GameRoot()
@@ -31,8 +35,9 @@ namespace Invasion
             Content.RootDirectory = "Content";
             Instance = this;
             
-            graphics.PreferredBackBufferWidth = (int)DisplaySize.X-50;
-            graphics.PreferredBackBufferHeight = (int)DisplaySize.Y -150;
+            graphics.PreferredBackBufferWidth = (int)DisplaySize.X-150;
+            graphics.PreferredBackBufferHeight = (int)DisplaySize.Y -350;
+            
             
 
         }
@@ -49,6 +54,11 @@ namespace Invasion
 
             base.Initialize();
             EntityManager.Add(Planet.Instance);
+            Console.WriteLine("in main starting thread");
+            ServerThread.Start();
+            Console.WriteLine("back to main");
+            //inputserver.StartListening();
+            
         }
 
         /// <summary>

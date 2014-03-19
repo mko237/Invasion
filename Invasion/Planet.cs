@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Invasion
 {
@@ -28,6 +30,11 @@ namespace Invasion
         public override void Update()
         {
             //planet logic here
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(image, Position, null, color , Orientation, Size / 2f, 1f, 0, 0);
         }
 
             
