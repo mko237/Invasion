@@ -48,7 +48,7 @@ namespace Invasion
         {
             try
             {
-                Console.WriteLine("In onclientconnect");
+                Console.WriteLine("client connected");
                 m_socWorker = m_socListener.EndAccept(asyn);
                 WaitForData();
                 
@@ -66,7 +66,7 @@ namespace Invasion
 
         public static void WaitForData()
         {
-            Console.WriteLine("In waitfordata");
+            Console.WriteLine("waiting for data");
             if (pfnCallBack == null)
                 pfnCallBack = new AsyncCallback(OnDataReceived);
             // now start to listen for any data...
@@ -74,7 +74,7 @@ namespace Invasion
         }
         public static void OnDataReceived(IAsyncResult asyn)
         {
-            Console.WriteLine("In ondata received");
+            Console.WriteLine("data received");
             //end receive...
             int iRx = 0;
             iRx = m_socWorker.EndReceive(asyn);
@@ -83,7 +83,9 @@ namespace Invasion
             int charLen = d.GetChars(m_DataBuffer, 0, iRx, chars, 0);
             System.String szData = new System.String(chars);
             Console.WriteLine(szData);
-            m_socWorker.Send(m_DataBuffer);
+            //TestInputDraw.Q.Push(szData);
+            TestInputDraw.QQ = szData;
+            //m_socWorker.Send(m_DataBuffer);
             WaitForData();
         }
     

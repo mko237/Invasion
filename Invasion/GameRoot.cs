@@ -37,6 +37,9 @@ namespace Invasion
             
             graphics.PreferredBackBufferWidth = (int)DisplaySize.X-150;
             graphics.PreferredBackBufferHeight = (int)DisplaySize.Y -350;
+
+            IsFixedTimeStep = true;
+            TargetElapsedTime = TimeSpan.FromSeconds(1.0 / 120);
             
             
 
@@ -111,6 +114,7 @@ namespace Invasion
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
             EntityManager.Draw(spriteBatch);
+            TestInputDraw.Draw(spriteBatch);
             spriteBatch.End();
 
 

@@ -84,6 +84,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="GameRoot.cs" />
     <Compile Include="Ship.cs" />
+    <Compile Include="TestInputDraw.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
