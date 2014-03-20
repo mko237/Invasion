@@ -19,6 +19,7 @@ namespace Invasion
         public static AsyncCallback pfnCallBack;
        // public static Socket m_socClient;
         public static Socket m_socWorker;
+        
 
 
         

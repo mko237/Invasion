@@ -30,13 +30,14 @@ namespace Invasion
             foreach (var entity in entities)
                 entity.Update();
             
-            isUpdating = false;
+            isUpdating = false; 
 
             foreach (var entity in addedEntities)
                 entities.Add(entity);
             
             addedEntities.Clear();
             entities = entities.Where(x => !x.IsExpired).ToList();
+            
         }
 
         public static void Draw(SpriteBatch spriteBatch)

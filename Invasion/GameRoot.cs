@@ -39,7 +39,7 @@ namespace Invasion
             graphics.PreferredBackBufferHeight = (int)DisplaySize.Y -350;
 
             IsFixedTimeStep = true;
-            TargetElapsedTime = TimeSpan.FromSeconds(1.0 / 120);
+            //TargetElapsedTime = TimeSpan.FromSeconds(1.0 / 120);
             
             
 
