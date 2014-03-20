@@ -108,7 +108,7 @@ namespace Invasion
         {
             GeneratePositions();
             Planets = new Planet[PositionsCreated];
-            Console.WriteLine("Psotions created: " + PositionsCreated);
+            Console.WriteLine("Postions created: " + PositionsCreated);
             
             for (int i = 0; i < PositionsCreated; i++)
             {
