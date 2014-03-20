@@ -9,17 +9,15 @@ namespace Invasion
 {
     class Planet : Entity
     {
-        
-        private static Planet instance;
-        public static Planet Instance
+
+        enum State
         {
-            get
-            {
-                if (instance == null)
-                    instance = new Planet();
-                return instance;
-            }
+            RED,
+            BLUE,
+            NEUTRAL
         }
+
+        State state { get; set; }
 
         public Planet()
         {
@@ -33,6 +31,7 @@ namespace Invasion
            color = col;
            ObjectSize = size;
            image = Art.Planet;
+           state = State.NEUTRAL;
         }
 
         public override void Update()
