@@ -13,15 +13,18 @@ namespace Invasion
         private static Planet[] Planets;
         private static Random rand = new Random();
         private static Vector2[] Positions;
-        private static float[] Sizes;
+        private static float[] sizes;
         private static int PositionsCreated = 0;
+        private static int minDistance = 0;
+        private static float maxSize = .05f; //determines the max size of planets
+        private static float minSize = .005f; //determines the min size of plaents
         
 
         public LevelSpawner(int numplanets)
         {
             NumPlanets = numplanets;
             Positions = new Vector2[NumPlanets];
-            Sizes = new float[NumPlanets];
+            sizes = new float[NumPlanets];
         }
 
         private void GeneratePositions()
@@ -32,57 +35,66 @@ namespace Invasion
             //    Sizes[i] = randsize;
             //}
             int attempts = 0;
-            int BoarderConstant = 100; // the image is 100 x 100 so i set the cosnstant to this. 
+            int imageSize = 100; // the image is 100 x 100 so i set the cosnstant to this. 
             
             for (int i = 0; i < NumPlanets; i++) //
             {
                 attempts++;
-                if (attempts > NumPlanets + 1000) //stops trying to generate planets if a certain threshold is reached
+                if (attempts > NumPlanets + 1000000) //stops trying to generate planets if a certain threshold is reached
                     break;
                 
-                float randsize = rand.NextFloat(.3f, 1.5f);// generate random sizes for each planet
-                Sizes[i] = randsize;
+                float randsize = rand.NextFloat(minSize, maxSize);// generate random sizes for each planet
+                sizes[i] = randsize;
                 
-               
-
                 bool remove = false;
-                bool testb = false;
-                int Sizeindex = 0;
+                float radius = 0.5f * sizes[i] * imageSize;
+                //bool testb = false;
+                int sizeIndex = 0;
+                Vector2 borderMargin = new Vector2(GameRoot.ScreenSize.X / 35, GameRoot.ScreenSize.Y / 20);
 
-                Vector2 randposition = new Vector2(rand.NextFloat(GameRoot.ScreenSize.X / 35, GameRoot.ScreenSize.X - GameRoot.ScreenSize.X / 35), rand.NextFloat(GameRoot.ScreenSize.Y / 20, GameRoot.ScreenSize.Y - GameRoot.ScreenSize.Y / 20));
+                Vector2 randPosition = new Vector2(rand.NextFloat(borderMargin.X, GameRoot.ScreenSize.X - borderMargin.X), rand.NextFloat(borderMargin.Y, GameRoot.ScreenSize.Y - borderMargin.Y));
                 
-                foreach (var position in Positions)
+                foreach (Vector2 position in Positions)
                 {
-                    if ((randposition.X - Sizes[i] * BoarderConstant >= position.X + (Sizes[Sizeindex] * BoarderConstant)) || (randposition.X + Sizes[i] * BoarderConstant <= position.X - (Sizes[Sizeindex] * BoarderConstant))) // if x is not within range of this planet
+                    /*
+                    if ((randposition.X - sizes[i] * BoarderConstant >= position.X + (sizes[sizeIndex] * BoarderConstant)) || (randposition.X + sizes[i] * BoarderConstant <= position.X - (sizes[sizeIndex] * BoarderConstant))) // if x is not within range of this planet
                     {
                         //testb = (randposition.X >= position.X + (Sizes[Sizeindex] * 100));
-                       // Console.WriteLine(testb);
+                        //Console.WriteLine(testb);
                         //continue;
                         
                         
                     }
-                    else if (!((randposition.Y - Sizes[i] * BoarderConstant >= position.Y + (Sizes[Sizeindex] * BoarderConstant)) || (randposition.Y + Sizes[i] * BoarderConstant <= position.Y + (Sizes[Sizeindex] * BoarderConstant)))) // otherwise if x is in range , check that y is not in range. if it is, remove is true, and planet will not be added.
+                    else if (!((randposition.Y - sizes[i] * BoarderConstant >= position.Y + (sizes[sizeIndex] * BoarderConstant)) || (randposition.Y + sizes[i] * BoarderConstant <= position.Y + (sizes[sizeIndex] * BoarderConstant)))) // otherwise if x is in range , check that y is not in range. if it is, remove is true, and planet will not be added.
                     {
                         remove = true;
-                        var xtop = randposition.X + (Sizes[Sizeindex] * 100);
-                        var xbot = randposition.X - (Sizes[Sizeindex] * 100);
-                        var ytop = randposition.Y + (Sizes[Sizeindex] * 100);
-                        var ybot = randposition.Y - (Sizes[Sizeindex] * 100);
+                        var xtop = randposition.X + (sizes[sizeIndex] * 100);
+                        var xbot = randposition.X - (sizes[sizeIndex] * 100);
+                        var ytop = randposition.Y + (sizes[sizeIndex] * 100);
+                        var ybot = randposition.Y - (sizes[sizeIndex] * 100);
 
-                        Console.WriteLine("removed: " + randposition + "=" + position + ": (" + xtop + "-" + xbot + "), (" + ytop + "-" + ybot+")");
+                        Console.WriteLine("removed: " + randposition + "=" + position + ": (" + xtop + "-" + xbot + "), (" + ytop + "-" + ybot + ")");
                         break;
                     }
-                    else 
+                     */
+                    float distance = Vector2.DistanceSquared(randPosition, position);
+                    if (distance < (0.5f * sizes[sizeIndex] * imageSize + 0.5f * sizes[i] * imageSize + minDistance) * (0.5f * sizes[sizeIndex] * imageSize + 0.5 * sizes[i] * imageSize + minDistance))
                     {
-                        continue;
+                        remove = true;
+                        break;
                     }
-                    Sizeindex++;
+                    else if (randPosition.X - radius < borderMargin.X || randPosition.Y - radius < borderMargin.Y || randPosition.X + radius > GameRoot.ScreenSize.X - borderMargin.X || randPosition.Y + radius > GameRoot.ScreenSize.Y - borderMargin.Y)
+                    {
+                        remove = true;
+                        break;
+                    }
+                    sizeIndex++;
 
                 }
 
                 if (!remove)// if remove is false set position
                 {
-                    Positions[i] = randposition;
+                    Positions[i] = randPosition;
                     PositionsCreated++;
                 }
                 else //do nothing, try again
@@ -100,7 +112,7 @@ namespace Invasion
             
             for (int i = 0; i < PositionsCreated; i++)
             {
-                Planets[i] = new Planet(Positions[i], Color.White, Sizes[i]);
+                Planets[i] = new Planet(Positions[i], Color.White, sizes[i]);
                 //Console.WriteLine("p: " + Positions[i] + " s: " + Sizes[i]);
                 EntityManager.Add(Planets[i]);
             }
