@@ -18,6 +18,7 @@ namespace Invasion
         private static int minDistance = 0;
         private static float maxSize = 1.5f; //determines the max size of planets
         private static float minSize = .4f; //determines the min size of plaents
+        private static float homeMultiplier = 1.75f;
         
 
         public LevelSpawner(int numplanets)
@@ -29,11 +30,17 @@ namespace Invasion
 
         private void GeneratePositions()
         {
-            //for (int i = 0; i < NumPlanets; i++) // generate random sizes for each planet
-            //{
-            //    float randsize = rand.NextFloat(0, 1);
-            //    Sizes[i] = randsize;
-            //}
+
+            Vector2 borderMargin = new Vector2(GameRoot.ScreenSize.X / 35, GameRoot.ScreenSize.Y / 20);
+
+            Vector2 randHomePositionA = new Vector2(rand.NextFloat(borderMargin.X, 0.25f * GameRoot.ScreenSize.X), rand.NextFloat(borderMargin.Y, GameRoot.ScreenSize.Y - borderMargin.Y));
+            Positions[0] = randHomePositionA;
+            sizes[0] = homeMultiplier;
+
+            Vector2 randHomePositionB = new Vector2(rand.NextFloat(0.75f * GameRoot.ScreenSize.X, GameRoot.ScreenSize.X - borderMargin.X), rand.NextFloat(borderMargin.Y, GameRoot.ScreenSize.Y - borderMargin.Y));
+            Positions[1] = randHomePositionB;
+            sizes[1] = homeMultiplier;
+
             int attempts = 0;
             int imageSize = 100; // the image is 100 x 100 so i set the cosnstant to this. 
             
@@ -48,9 +55,7 @@ namespace Invasion
                 
                 bool remove = false;
                 float radius = 0.5f * sizes[i] * imageSize;
-                //bool testb = false;
                 int sizeIndex = 0;
-                Vector2 borderMargin = new Vector2(GameRoot.ScreenSize.X / 35, GameRoot.ScreenSize.Y / 20);
 
                 Vector2 randPosition = new Vector2(rand.NextFloat(borderMargin.X, GameRoot.ScreenSize.X - borderMargin.X), rand.NextFloat(borderMargin.Y, GameRoot.ScreenSize.Y - borderMargin.Y));
                 
