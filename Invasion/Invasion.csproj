@@ -78,6 +78,7 @@
     <Compile Include="EntityManager.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="InputServer.cs" />
+    <Compile Include="LevelSpawner.cs" />
     <Compile Include="MathUtil.cs" />
     <Compile Include="Planet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

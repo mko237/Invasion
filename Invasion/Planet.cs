@@ -9,6 +9,7 @@ namespace Invasion
 {
     class Planet : Entity
     {
+        
         private static Planet instance;
         public static Planet Instance
         {
@@ -20,11 +21,18 @@ namespace Invasion
             }
         }
 
-        private Planet()
+        public Planet()
         {
             //initialize planet here
             image = Art.Planet;
             Position = GameRoot.ScreenSize / 2;
+        }
+        public Planet(Vector2 position, Color col, float size)
+        {
+           Position = position;
+           color = col;
+           ObjectSize = size;
+           image = Art.Planet;
         }
 
         public override void Update()
@@ -34,7 +42,8 @@ namespace Invasion
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, Position, null, color , Orientation, Size / 2f, 1f, 0, 0);
+            spriteBatch.Draw(image, Position, null, color, Orientation, Size / 2f, ObjectSize, 0, 0);
+            //Console.WriteLine("planet position : " + Position + "PlanetSize: " + ObjectSize);
         }
 
             

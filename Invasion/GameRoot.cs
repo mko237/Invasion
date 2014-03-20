@@ -56,7 +56,9 @@ namespace Invasion
            
 
             base.Initialize();
-            EntityManager.Add(Planet.Instance);
+            //EntityManager.Add(Planet.Instance);
+            LevelSpawner Level = new LevelSpawner(50);
+            Level.Spawn();
             Console.WriteLine("in main starting thread");
             ServerThread.Start();
             Console.WriteLine("back to main");

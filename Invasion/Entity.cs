@@ -16,6 +16,7 @@ namespace Invasion
         public float Orientation;
         public float Radius = 20;
         public bool IsExpired;
+        public float ObjectSize = 1f;
 
         public Vector2 Size
         {
@@ -29,7 +30,7 @@ namespace Invasion
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, Position, null, color, Orientation, Size / 2f, 1f, 0, 0);
+            spriteBatch.Draw(image, Position, null, color, Orientation, Size / 2f, ObjectSize, 0, 0);
             
         }
     }
