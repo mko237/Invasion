@@ -56,34 +56,14 @@ namespace Invasion
                 
                 foreach (Vector2 position in Positions)
                 {
-                    /*
-                    if ((randposition.X - sizes[i] * BoarderConstant >= position.X + (sizes[sizeIndex] * BoarderConstant)) || (randposition.X + sizes[i] * BoarderConstant <= position.X - (sizes[sizeIndex] * BoarderConstant))) // if x is not within range of this planet
-                    {
-                        //testb = (randposition.X >= position.X + (Sizes[Sizeindex] * 100));
-                        //Console.WriteLine(testb);
-                        //continue;
-                        
-                        
-                    }
-                    else if (!((randposition.Y - sizes[i] * BoarderConstant >= position.Y + (sizes[sizeIndex] * BoarderConstant)) || (randposition.Y + sizes[i] * BoarderConstant <= position.Y + (sizes[sizeIndex] * BoarderConstant)))) // otherwise if x is in range , check that y is not in range. if it is, remove is true, and planet will not be added.
-                    {
-                        remove = true;
-                        var xtop = randposition.X + (sizes[sizeIndex] * 100);
-                        var xbot = randposition.X - (sizes[sizeIndex] * 100);
-                        var ytop = randposition.Y + (sizes[sizeIndex] * 100);
-                        var ybot = randposition.Y - (sizes[sizeIndex] * 100);
-
-                        Console.WriteLine("removed: " + randposition + "=" + position + ": (" + xtop + "-" + xbot + "), (" + ytop + "-" + ybot + ")");
-                        break;
-                    }
-                     */
+                   
                     float distance = Vector2.DistanceSquared(randPosition, position);
-                    if (distance < (0.5f * sizes[sizeIndex] * imageSize + 0.5f * sizes[i] * imageSize + minDistance) * (0.5f * sizes[sizeIndex] * imageSize + 0.5 * sizes[i] * imageSize + minDistance))
+                    if (distance < (0.5f * sizes[sizeIndex] * imageSize + 0.5f * sizes[i] * imageSize + minDistance) * (0.5f * sizes[sizeIndex] * imageSize + 0.5 * sizes[i] * imageSize + minDistance)) //compares the distance between the two positions and removes if they are overlapping.
                     {
                         remove = true;
                         break;
                     }
-                    else if (randPosition.X - radius < borderMargin.X || randPosition.Y - radius < borderMargin.Y || randPosition.X + radius > GameRoot.ScreenSize.X - borderMargin.X || randPosition.Y + radius > GameRoot.ScreenSize.Y - borderMargin.Y)
+                    else if (randPosition.X - radius < borderMargin.X || randPosition.Y - radius < borderMargin.Y || randPosition.X + radius > GameRoot.ScreenSize.X - borderMargin.X || randPosition.Y + radius > GameRoot.ScreenSize.Y - borderMargin.Y) // removes if position blus radius is a too close to the borderMargin.
                     {
                         remove = true;
                         break;
@@ -130,13 +110,7 @@ namespace Invasion
         //    }
         //}
 
-        //public void Draw(SpriteBatch spriteBatch)
-        //{
-        //    foreach(Planet planet in Planets)
-        //    {
-        //        planet.Draw(spriteBatch);
-        //    }
-        //}
+        
 
     }
 }
