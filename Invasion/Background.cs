@@ -9,26 +9,31 @@ namespace Invasion
 {
     class Background : Entity
     {
-        private static Rectangle imageBox = new Rectangle();
+        private static Rectangle imageBox = new Rectangle(500,500,GameRoot.Viewport.Width,GameRoot.Viewport.Height);
+       
         public Background()
         {
-            image = Art.Planet;
+            image = Art.Background;
             Position = GameRoot.ScreenSize / 2;
             Orientation = 360f;
         }
 
-        public void Update()
-        {
-                   
-                if(Orientation <= 0)
-                    Orientation -= .05f;
-                else
-                    Orientation = 360;
-               
-        }
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Update()
         {
             
+                if(Orientation <= 0)
+                    Orientation = 360f;
+                else
+                    Orientation -= .00005f;
+               
+        }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            
+            if (image != null)
+                spriteBatch.Draw(image, Position, null, Color.White, Orientation, Size / 2f,ObjectSize*2.5f,0,0);
+            else
+                Console.WriteLine("image was null");
         }
     }
 
