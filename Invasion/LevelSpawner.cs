@@ -16,8 +16,8 @@ namespace Invasion
         private static float[] sizes;
         private static int PositionsCreated = 0;
         private static int minDistance = 0;
-        private static float maxSize = .05f; //determines the max size of planets
-        private static float minSize = .005f; //determines the min size of plaents
+        private static float maxSize = 1.5f; //determines the max size of planets
+        private static float minSize = .4f; //determines the min size of plaents
         
 
         public LevelSpawner(int numplanets)

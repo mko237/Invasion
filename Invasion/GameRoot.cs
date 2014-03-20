@@ -57,6 +57,8 @@ namespace Invasion
 
             base.Initialize();
             //EntityManager.Add(Planet.Instance);
+            Background Background = new Background();
+            EntityManager.Add(Background);
             LevelSpawner Level = new LevelSpawner(100);
             Level.Spawn();
             Console.WriteLine("in main starting thread");
@@ -114,6 +116,7 @@ namespace Invasion
             GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
+
             spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
             EntityManager.Draw(spriteBatch);
             TestInputDraw.Draw(spriteBatch);
