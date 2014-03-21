@@ -13,12 +13,14 @@ namespace Invasion
         private static Planet[] Planets;
         private static Random rand = new Random();
         private static Vector2[] Positions;
+        private static int[] PlanetIDs;
         private static float[] sizes;
         private static int PositionsCreated = 0;
         private static int minDistance = 0;
-        private static float maxSize = 1.5f; //determines the max size of planets
-        private static float minSize = .4f; //determines the min size of plaents
+        private static float maxSize = .8f; //determines the max size of planets
+        private static float minSize = .075f; //determines the min size of plaents
         private static float homeMultiplier = 1.75f;
+        
         
 
         public LevelSpawner(int numplanets)
@@ -26,6 +28,8 @@ namespace Invasion
             NumPlanets = numplanets;
             Positions = new Vector2[NumPlanets];
             sizes = new float[NumPlanets];
+            PlanetIDs = new int[NumPlanets];
+
         }
 
         private void GeneratePositions()
@@ -80,6 +84,7 @@ namespace Invasion
                 if (!remove)// if remove is false set position
                 {
                     Positions[i] = randPosition;
+                    PlanetIDs[i] = i;
                     PositionsCreated++;
                 }
                 else //do nothing, try again
@@ -97,7 +102,7 @@ namespace Invasion
             
             for (int i = 0; i < PositionsCreated; i++)
             {
-                Planets[i] = new Planet(Positions[i], Color.White, sizes[i]);
+                Planets[i] = new Planet(Positions[i], Color.White, sizes[i],PlanetIDs[i]);
                 //Console.WriteLine("p: " + Positions[i] + " s: " + Sizes[i]);
                 EntityManager.Add(Planets[i]);
             }
