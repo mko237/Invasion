@@ -7,16 +7,19 @@ using Microsoft.Xna.Framework;
 
 namespace Invasion
 {
-    class Planet : Entity
+    public class Planet : Entity
     {
-        private int ID = new int();
-        SpriteFont text = Art.Font; 
-        enum State
+
+        public enum State
         {
             RED,
             BLUE,
             NEUTRAL
         }
+
+        private static float productionAccel = 0.5f;
+
+        private float productionRate;
 
         State state { get; set; }
 
@@ -24,27 +27,18 @@ namespace Invasion
         {
             //initialize planet here
             image = Art.Planet;
-            
             Position = GameRoot.ScreenSize / 2;
         }
-        public Planet(Vector2 position, Color col, float size)
+
+        public Planet(Vector2 position, Color col, float size, float radius)
         {
            Position = position;
            color = col;
            ObjectSize = size;
+           Radius = radius;
            image = Art.Planet;
            state = State.NEUTRAL;
-        }
-
-        public Planet(Vector2 position, Color col, float size, int id)
-        {
-            Position = position;
-            color = col;
-            ObjectSize = size;
-            image = Art.Planet;
-            ID = id;
-
-            state = State.NEUTRAL;
+           productionRate = productionAccel * Radius;
         }
 
         public override void Update()
@@ -54,10 +48,7 @@ namespace Invasion
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            
             spriteBatch.Draw(image, Position, null, color, Orientation, Size / 2f, ObjectSize, 0, 0);
-            String id = ID.ToString();
-            spriteBatch.DrawString(text, id, Position,Color.White);
             //Console.WriteLine("planet position : " + Position + "PlanetSize: " + ObjectSize);
         }
 
