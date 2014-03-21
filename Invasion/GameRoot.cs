@@ -27,7 +27,6 @@ namespace Invasion
         public static Vector2 DisplaySize { get { return new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height); } }
         //private static InputServer inputserver = new InputServer();
         private static Thread ServerThread = new Thread(InputServer.StartListening);
-       
 
         public GameRoot()
         {
@@ -59,8 +58,20 @@ namespace Invasion
             //EntityManager.Add(Planet.Instance);
             Background Background = new Background();
             EntityManager.Add(Background);
+
+            // creates new teams
+            Team team1 = new Team(1, Color.Red);
+            Team.teams.Add(team1);
+            Team team2 = new Team(2, Color.Blue);
+            Team.teams.Add(team2);
+
+            // spawns the level and the planets
             LevelSpawner Level = new LevelSpawner(100);
+            Planet[] homePlanets = {team1.getHomePlanet(), team2.getHomePlanet()};
+            Level.AddHomePlanets(homePlanets);
             Level.Spawn();
+
+
             Console.WriteLine("in main starting thread");
             ServerThread.Start();
             Console.WriteLine("back to main");

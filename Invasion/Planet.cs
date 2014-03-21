@@ -7,15 +7,19 @@ using Microsoft.Xna.Framework;
 
 namespace Invasion
 {
-    class Planet : Entity
+    public class Planet : Entity
     {
 
-        enum State
+        public enum State
         {
             RED,
             BLUE,
             NEUTRAL
         }
+
+        private static float productionAccel = 0.5f;
+
+        private float productionRate;
 
         State state { get; set; }
 
@@ -25,13 +29,16 @@ namespace Invasion
             image = Art.Planet;
             Position = GameRoot.ScreenSize / 2;
         }
-        public Planet(Vector2 position, Color col, float size)
+
+        public Planet(Vector2 position, Color col, float size, float radius)
         {
            Position = position;
            color = col;
            ObjectSize = size;
+           Radius = radius;
            image = Art.Planet;
            state = State.NEUTRAL;
+           productionRate = productionAccel * Radius;
         }
 
         public override void Update()

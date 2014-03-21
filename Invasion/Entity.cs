@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Invasion
 {
-    abstract class Entity
+    public abstract class Entity
     {
         protected Texture2D image;
         protected Color color = Color.White;
