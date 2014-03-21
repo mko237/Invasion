@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invasion", "Invasion.csproj", "{17FF5078-AF2D-4FA1-B1AE-A7DD3360673F}"
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invasion", "Invasion\Invasion\Invasion.csproj", "{17FF5078-AF2D-4FA1-B1AE-A7DD3360673F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvasionContent", "..\InvasionContent\InvasionContent.contentproj", "{7A8C05E5-7847-4EC2-B01E-037E80C34D13}"
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "InvasionContent", "Invasion\InvasionContent\InvasionContent.contentproj", "{7A8C05E5-7847-4EC2-B01E-037E80C34D13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
