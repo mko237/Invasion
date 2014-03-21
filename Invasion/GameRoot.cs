@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using BloomPostprocess;
 
 namespace Invasion
 {
@@ -20,6 +21,7 @@ namespace Invasion
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        
 
         public static GameRoot Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
@@ -27,6 +29,8 @@ namespace Invasion
         public static Vector2 DisplaySize { get { return new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height); } }
         //private static InputServer inputserver = new InputServer();
         private static Thread ServerThread = new Thread(InputServer.StartListening);
+        
+        public static BloomComponent bloom;
 
         public GameRoot()
         {
@@ -34,8 +38,12 @@ namespace Invasion
             Content.RootDirectory = "Content";
             Instance = this;
             
-            graphics.PreferredBackBufferWidth = (int)DisplaySize.X-150;
-            graphics.PreferredBackBufferHeight = (int)DisplaySize.Y -350;
+            graphics.PreferredBackBufferWidth = 1680;//(int)DisplaySize.X-150;
+            graphics.PreferredBackBufferHeight = 1050;//(int)DisplaySize.Y -350;
+
+            bloom = new BloomComponent(this);
+            Components.Add(bloom);
+            bloom.Settings = new BloomSettings(null, .25f, 4, 2, 1, 1.5f, 1);
 
             IsFixedTimeStep = true;
             //TargetElapsedTime = TimeSpan.FromSeconds(1.0 / 120);
@@ -66,11 +74,12 @@ namespace Invasion
             Team.teams.Add(team2);
 
             // spawns the level and the planets
-            LevelSpawner Level = new LevelSpawner(100);
+            LevelSpawner Level = new LevelSpawner(50);
             Planet[] homePlanets = {team1.getHomePlanet(), team2.getHomePlanet()};
             Level.AddHomePlanets(homePlanets);
             Level.Spawn();
 
+            
 
             Console.WriteLine("in main starting thread");
             ServerThread.Start();
@@ -113,6 +122,7 @@ namespace Invasion
                 this.Exit();
 
             // TODO: Add your update logic here
+            InputDisplay.UpdateInput();
             EntityManager.Update();
 
             base.Update(gameTime);
@@ -124,6 +134,7 @@ namespace Invasion
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            bloom.BeginDraw();
             GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
@@ -131,6 +142,7 @@ namespace Invasion
             spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
             EntityManager.Draw(spriteBatch);
             TestInputDraw.Draw(spriteBatch);
+            InputDisplay.Draw(spriteBatch);
             spriteBatch.End();
 
 
