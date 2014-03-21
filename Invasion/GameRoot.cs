@@ -72,7 +72,7 @@ namespace Invasion
             Team.teams.Add(team2);
 
             // spawns the level and the planets
-            LevelSpawner Level = new LevelSpawner(100);
+            LevelSpawner Level = new LevelSpawner(50);
             Planet[] homePlanets = {team1.getHomePlanet(), team2.getHomePlanet()};
             Level.AddHomePlanets(homePlanets);
             Level.Spawn();
