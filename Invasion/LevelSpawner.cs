@@ -15,6 +15,7 @@ namespace Invasion
         private static Random rand = new Random();
         private static Vector2[] Positions;
         private static float[] sizeMultipliers;
+        private static int[] PlanetIDs;
         public static Vector2 BorderMargin = new Vector2(GameRoot.ScreenSize.X / 35, GameRoot.ScreenSize.Y / 20); 
         private static int PositionsCreated = 0;
         private const int minDistance = 0;
@@ -30,6 +31,7 @@ namespace Invasion
             Positions = new Vector2[NumPlanets];
             sizeMultipliers = new float[NumPlanets];
             imageSize = Art.Planet.Width; // the image is 100 x 100 so i set the cosnstant to this. 
+            PlanetIDs = new int[NumPlanets];
         }
 
         private void GeneratePositions()
@@ -68,9 +70,11 @@ namespace Invasion
                 if (!remove)// if remove is false set position
                 {
                     Positions[i] = randPosition;
+                    PlanetIDs[i] = i;
                     PositionsCreated++;
                     i++;
-                }    
+                }
+               
             }
         }
 
@@ -82,7 +86,7 @@ namespace Invasion
 
             for (int i = Team.teams.Count; i < PositionsCreated; i++)
             {
-                Planet planet = new Planet(Positions[i], Color.White, sizeMultipliers[i], 0.5f * sizeMultipliers[i] * imageSize);
+                Planet planet = new Planet(Positions[i], Color.White, sizeMultipliers[i], 0.5f * sizeMultipliers[i] * imageSize,PlanetIDs[i]);
                 Planets.Add(planet);
                 EntityManager.Add(planet);
             }

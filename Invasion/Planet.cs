@@ -9,7 +9,8 @@ namespace Invasion
 {
     public class Planet : Entity
     {
-
+        private int ID = new int();
+        SpriteFont text = Art.Font; 
         public enum State
         {
             RED,
@@ -40,6 +41,17 @@ namespace Invasion
            state = State.NEUTRAL;
            productionRate = productionAccel * Radius;
         }
+        public Planet(Vector2 position, Color col, float size, float radius, int id)
+        {
+            Position = position;
+            color = col;
+            ObjectSize = size;
+            Radius = radius;
+            image = Art.Planet;
+            state = State.NEUTRAL;
+            productionRate = productionAccel * Radius;
+            ID = id;
+        }
 
         public override void Update()
         {
@@ -49,6 +61,8 @@ namespace Invasion
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(image, Position, null, color, Orientation, Size / 2f, ObjectSize, 0, 0);
+            
+            spriteBatch.DrawString(text, ID.ToString(), Position, Color.White);
             //Console.WriteLine("planet position : " + Position + "PlanetSize: " + ObjectSize);
         }
 
