@@ -21,6 +21,7 @@ namespace Invasion
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        
 
         public static GameRoot Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
@@ -28,6 +29,7 @@ namespace Invasion
         public static Vector2 DisplaySize { get { return new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height); } }
         //private static InputServer inputserver = new InputServer();
         private static Thread ServerThread = new Thread(InputServer.StartListening);
+        
         public static BloomComponent bloom;
 
         public GameRoot()
@@ -77,6 +79,7 @@ namespace Invasion
             Level.AddHomePlanets(homePlanets);
             Level.Spawn();
 
+            
 
             Console.WriteLine("in main starting thread");
             ServerThread.Start();
@@ -119,6 +122,7 @@ namespace Invasion
                 this.Exit();
 
             // TODO: Add your update logic here
+            InputDisplay.UpdateInput();
             EntityManager.Update();
 
             base.Update(gameTime);
@@ -138,6 +142,7 @@ namespace Invasion
             spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
             EntityManager.Draw(spriteBatch);
             TestInputDraw.Draw(spriteBatch);
+            InputDisplay.Draw(spriteBatch);
             spriteBatch.End();
 
 
