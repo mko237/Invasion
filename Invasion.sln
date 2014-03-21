@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invasion", "Invasion\Invasion\Invasion.csproj", "{17FF5078-AF2D-4FA1-B1AE-A7DD3360673F}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "InvasionContent", "Invasion\InvasionContent\InvasionContent.contentproj", "{7A8C05E5-7847-4EC2-B01E-037E80C34D13}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17FF5078-AF2D-4FA1-B1AE-A7DD3360673F}.Debug|x86.ActiveCfg = Debug|x86
+		{17FF5078-AF2D-4FA1-B1AE-A7DD3360673F}.Debug|x86.Build.0 = Debug|x86
+		{17FF5078-AF2D-4FA1-B1AE-A7DD3360673F}.Release|x86.ActiveCfg = Release|x86
+		{17FF5078-AF2D-4FA1-B1AE-A7DD3360673F}.Release|x86.Build.0 = Release|x86
+		{7A8C05E5-7847-4EC2-B01E-037E80C34D13}.Debug|x86.ActiveCfg = Debug|x86
+		{7A8C05E5-7847-4EC2-B01E-037E80C34D13}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
