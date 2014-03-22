@@ -13,6 +13,8 @@ namespace Invasion
         SpriteFont text = Art.Font;
         Vector2 centerTextOffset;
 
+        public string SHUT_THE_FUCK = "<----";
+
         public enum State
         {
             NEUTRAL,
