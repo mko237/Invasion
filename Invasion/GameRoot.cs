@@ -31,7 +31,7 @@ namespace Invasion
         private static Thread ServerThread = new Thread(InputServer.StartListening);
         
         public static BloomComponent bloom;
-
+                       
         public GameRoot()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -63,6 +63,7 @@ namespace Invasion
            
 
             base.Initialize();
+            
             //EntityManager.Add(Planet.Instance);
             Background Background = new Background();
             EntityManager.Add(Background);
@@ -123,7 +124,9 @@ namespace Invasion
 
             // TODO: Add your update logic here
             InputDisplay.UpdateInput();
+            //InputParser.Update();
             EntityManager.Update();
+
 
             base.Update(gameTime);
         }
