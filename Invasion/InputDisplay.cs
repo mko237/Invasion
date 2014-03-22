@@ -51,11 +51,10 @@ namespace Invasion
             }
         }
 
-          public static void Draw(SpriteBatch spriteBatch)
-          {
-
-              spriteBatch.DrawString(text, textString, GameRoot.ScreenSize - text.MeasureString(textString), Color.White);
-          }
+       public static void Draw(SpriteBatch spriteBatch)
+       {
+           spriteBatch.DrawString(text, textString, GameRoot.ScreenSize - text.MeasureString(textString), Color.White);
+       }
 
          
     }
