@@ -67,16 +67,9 @@ namespace Invasion
             Background Background = new Background();
             EntityManager.Add(Background);
 
-            // creates new teams
-            Team team1 = new Team(1, Color.Red);
-            Team.teams.Add(team1);
-            Team team2 = new Team(2, Color.Blue);
-            Team.teams.Add(team2);
-
             // spawns the level and the planets
             LevelSpawner Level = new LevelSpawner(50);
-            Planet[] homePlanets = {team1.getHomePlanet(), team2.getHomePlanet()};
-            Level.AddHomePlanets(homePlanets);
+            Team.GenerateTeams(Level, 2);
             Level.Spawn();
 
             
