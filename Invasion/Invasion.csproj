@@ -81,6 +81,7 @@
     <Compile Include="EntityManager.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="InputDisplay.cs" />
+    <Compile Include="InputParser.cs" />
     <Compile Include="InputServer.cs" />
     <Compile Include="LevelSpawner.cs" />
     <Compile Include="MathUtil.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="GameRoot.cs" />
     <Compile Include="Ship.cs" />
+    <Compile Include="ShipManager.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="TestInputDraw.cs" />
   </ItemGroup>
