@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="A.cs" />
     <Compile Include="Art.cs" />
+    <Compile Include="B.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="BloomComponent.cs" />
     <Compile Include="BloomSettings.cs" />
