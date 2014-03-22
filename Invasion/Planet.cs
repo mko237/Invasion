@@ -22,7 +22,7 @@ namespace Invasion
             OCCUPIED
         }
 
-        private const float productionAccel = 2.5f;
+        private const float productionAccel = 5.2f;
         private float productionRate;
         private float shipCount;
         private Team occupiedTeam;
