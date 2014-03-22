@@ -7,14 +7,14 @@ using Microsoft.Xna.Framework;
 
 namespace Invasion
 {
-    //this is mikes comment
+   
     public class Planet : Entity
     {
         private int ID = new int();
         SpriteFont text = Art.Font;
         Vector2 centerTextOffset;
 
-        public string SHUT_THE_FUCK = "<----";
+        
 
         public enum State
         {
@@ -22,7 +22,7 @@ namespace Invasion
             OCCUPIED
         }
 
-        private const float productionAccel = 2.0f;
+        private const float productionAccel = 2.5f;
         private float productionRate;
         private float shipCount;
         private Team occupiedTeam;
