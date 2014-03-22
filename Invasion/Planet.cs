@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Invasion
 {
+    //this is mikes comment
     public class Planet : Entity
     {
         private int ID = new int();
