@@ -31,7 +31,7 @@ namespace Invasion
         {
             
             if (image != null)
-                spriteBatch.Draw(image, Position, null, Color.White, Orientation, Size / 2f,ObjectSize*2.5f,0,0);
+                spriteBatch.Draw(image, Position, null, Color.White, Orientation, Size / 2f,ObjectSize*2f,0,0);
             else
                 Console.WriteLine("image was null");
         }

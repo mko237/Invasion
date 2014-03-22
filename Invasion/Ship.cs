@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Invasion
 {
-    class Ship :Entity
+    class Ship : Entity
     {
         public Ship(Vector2 position, Vector2 velocity)
         {

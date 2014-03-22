@@ -75,9 +75,12 @@
   <ItemGroup>
     <Compile Include="Art.cs" />
     <Compile Include="Background.cs" />
+    <Compile Include="BloomComponent.cs" />
+    <Compile Include="BloomSettings.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityManager.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="InputDisplay.cs" />
     <Compile Include="InputServer.cs" />
     <Compile Include="LevelSpawner.cs" />
     <Compile Include="MathUtil.cs" />
