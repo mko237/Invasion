@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace Invasion
 {
-    class LevelSpawner
+    public class LevelSpawner
     {
         private static int NumPlanets = 0;
         private static List<Planet> Planets;
@@ -16,11 +16,11 @@ namespace Invasion
         private static Vector2[] Positions;
         private static float[] sizeMultipliers;
         private static int[] PlanetIDs;
-        public static Vector2 BorderMargin = new Vector2(GameRoot.ScreenSize.X / 35, GameRoot.ScreenSize.Y / 20); 
+        public static Vector2 BorderMargin = new Vector2(GameRoot.ScreenSize.X / 35, GameRoot.ScreenSize.Y / 25); 
         private static int PositionsCreated = 0;
-        private const int minDistance = 0;
+        private const int minDistance = 30;
         private const float maxSize = 0.9f; //determines the max size of planets
-        private const float minSize = 0.075f; //determines the min size of plaents
+        private const float minSize = 0.26f; //determines the min size of plaents
         public static int imageSize;
         
 
@@ -51,7 +51,7 @@ namespace Invasion
                 bool remove = false;
                 float radius = 0.5f * sizeMultipliers[i] * imageSize;
 
-                Vector2 randPosition = new Vector2(rand.NextFloat(BorderMargin.X, GameRoot.ScreenSize.X - BorderMargin.X - 2 * radius), rand.NextFloat(BorderMargin.Y, GameRoot.ScreenSize.Y - BorderMargin.Y - 2 * radius));
+                Vector2 randPosition = new Vector2(rand.NextFloat(BorderMargin.X + 2 * radius, GameRoot.ScreenSize.X - BorderMargin.X - 2 * radius), rand.NextFloat(BorderMargin.Y + 2 * radius, GameRoot.ScreenSize.Y - BorderMargin.Y - 2 * radius));
 
                 int sizeIndex = 0;
                 foreach (Vector2 position in Positions)
@@ -86,7 +86,7 @@ namespace Invasion
 
             for (int i = Team.teams.Count; i < PositionsCreated; i++)
             {
-                Planet planet = new Planet(Positions[i], Color.White, sizeMultipliers[i], 0.5f * sizeMultipliers[i] * imageSize,PlanetIDs[i]);
+                Planet planet = new Planet(Positions[i], Color.White, sizeMultipliers[i], PlanetIDs[i], null);
                 Planets.Add(planet);
                 EntityManager.Add(planet);
             }
@@ -103,6 +103,7 @@ namespace Invasion
                 EntityManager.Add(planet);
                 i++;
             }
+            PositionsCreated = i;
         }
     }
 }
