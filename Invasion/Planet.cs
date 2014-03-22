@@ -13,13 +13,15 @@ namespace Invasion
         SpriteFont text = Art.Font;
         Vector2 centerTextOffset;
 
+        public string SHUT_THE_FUCK = "<----";
+
         public enum State
         {
             NEUTRAL,
             OCCUPIED
         }
 
-        private const float productionAccel = 2.5f;
+        private const float productionAccel = 2.0f;
         private float productionRate;
         private float shipCount;
         private Team occupiedTeam;
