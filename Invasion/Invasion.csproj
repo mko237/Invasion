@@ -73,7 +73,6 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="A.cs" />
     <Compile Include="Art.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="BloomComponent.cs" />

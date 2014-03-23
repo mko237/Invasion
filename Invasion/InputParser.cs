@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Invasion
 {
-    static class InputParser
+    public static class InputParser
     {
         private static String Command = null;
         
@@ -17,7 +17,7 @@ namespace Invasion
             Command = InputDisplay.Command;
             if(Command != null)
             {
-                //ShipManager.sendShips(GameRoot.Instance.team1, 4, GameRoot.Instance.team1.getHomePlanet(), GameRoot.Instance.team2.getHomePlanet());
+                ShipManager.sendShips(Team.teams[0], 1, Team.teams[0].getHomePlanet(), Team.teams[1].getHomePlanet());
             }
         }
     }
