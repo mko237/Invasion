@@ -14,6 +14,7 @@ namespace Invasion
 
         public Vector2 Position, Velocity;
         public float Orientation;
+        public float LocalOrientation;
         public float Radius = 20;
         public bool IsExpired;
         public float ObjectSize = 1f;

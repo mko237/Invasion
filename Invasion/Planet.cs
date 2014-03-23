@@ -13,9 +13,6 @@ namespace Invasion
         private int ID = new int();
         SpriteFont text = Art.Font;
         Vector2 centerTextOffset;
-
-        
-
         public enum State
         {
             NEUTRAL,
@@ -50,23 +47,22 @@ namespace Invasion
             occupiedTeam = team;
         }
 
-        //public void changeShipCount(Ship ship, int n)
-        //{
-        //    if (ship.Team == occupiedTeam)
-        //    {
-        //        shipCount += n;
-        //    }
-        //    else
-        //    {
-        //        shipCount -= n;
-        //    }
-        //}
+        public void changeShipCount(Ship ship, int n)
+        {
+            if (ship.getTeam() == occupiedTeam)
+            {
+                shipCount += n;
+            }
+            else
+            {
+                shipCount -= n;
+            }
+        }
 
         public override void Update()
         {
             if (occupiedTeam != null)
             {
-                Console.WriteLine(shipCount);
                 shipCount += (productionRate / 3600);
             }
         }

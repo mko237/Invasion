@@ -15,11 +15,11 @@ namespace Invasion
 
         private Planet homePlanet {get; set;}
         private const float radius = 50;
-        private Color Color { get; set; }
+        private Color Color;
         private int totalShipCount;
         private List<Planet> planetsColonized = new List<Planet>();
 
-        private static List<Color> Colors = new List<Color> { Color.Red, Color.Blue, Color.GreenYellow, Color.Turquoise, Color.Goldenrod, Color.Pink, Color.ForestGreen, Color.Purple, Color.Brown };
+        private static List<Color> Colors = new List<Color> { Color.Red, Color.CadetBlue, Color.GreenYellow, Color.Turquoise, Color.Goldenrod, Color.Pink, Color.ForestGreen, Color.Purple, Color.Brown };
 
         public Team()
         {
@@ -113,6 +113,11 @@ namespace Invasion
         {
             //Planet planet = planetsColonized.Where(x => x.ID == p.ID);
             //planetsColonized.Remove(planet);
+        }
+
+        public Color getColor()
+        {
+            return Color;
         }
 
 
