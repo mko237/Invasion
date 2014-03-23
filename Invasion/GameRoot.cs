@@ -70,7 +70,7 @@ namespace Invasion
 
             // spawns the level and the planets
             LevelSpawner Level = new LevelSpawner(50);
-            Team.GenerateTeams(Level, 2);
+            TeamManager.GenerateTeams(Level, 8);
             Level.Spawn();
 
             

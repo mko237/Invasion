@@ -31,9 +31,6 @@ namespace Invasion
                 planets.Add(entity as Planet);
             else if(entity is Ship)
                 ships.Add(entity as Ship);
-
-
-
         }
 
         static void HandleCollisions()
@@ -72,7 +69,7 @@ namespace Invasion
         }
         private static bool IsColliding(ref Entity a, ref Entity b)
         {
-            float radius = a.Radius + b.Radius+15;
+            float radius = a.Radius + b.Radius;
             bool collisionDetected = !a.IsExpired && !b.IsExpired && a.Position.WithinRadius(b.Position, radius);
             //a.Colliding = collisionDetected;
             //b.Colliding = collisionDetected;

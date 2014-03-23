@@ -38,7 +38,7 @@ namespace Invasion
        }
        public static float ConvertToGlobal(this float orientation, Vector2 origin)
        {
-           return (float)Math.PI + origin.ToAngle() + orientation;
+           return origin.ToAngle() + orientation;
        }
     }
 }
