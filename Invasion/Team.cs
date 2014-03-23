@@ -27,6 +27,7 @@ namespace Invasion
             int index = rand.Next(Colors.Count);
             Color = Colors[index];
             Colors.RemoveAt(index);
+            //do you have to trim Colors here?
         }
 
         public static void GenerateTeams(LevelSpawner level, int n) 
@@ -104,7 +105,7 @@ namespace Invasion
             return homePlanet;
         }
 
-        public void addPlanet(Planet p)
+        public void addPlanet(Planet p) //we may want to implement a a team manager that can keep track of these things. but maybe here will be ok too.
         {
             planetsColonized.Add(p);
         }
