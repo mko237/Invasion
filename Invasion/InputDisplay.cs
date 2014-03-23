@@ -43,6 +43,7 @@ namespace Invasion
                     else if (key == Keys.Enter)
                     {
                         Command = textString;
+                        InputParser.Update();
                         textString = String.Empty;
                     }
                     else 

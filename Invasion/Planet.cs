@@ -13,15 +13,13 @@ namespace Invasion
         SpriteFont text = Art.Font;
         Vector2 centerTextOffset;
 
-        public string SHUT_THE_FUCK = "<----";
-
         public enum State
         {
             NEUTRAL,
             OCCUPIED
         }
 
-        private const float productionAccel = 2.0f;
+        private const float productionAccel = 2.5f;
         private float productionRate;
         private float shipCount;
         private Team occupiedTeam;
@@ -49,23 +47,22 @@ namespace Invasion
             occupiedTeam = team;
         }
 
-        //public void changeShipCount(Ship ship, int n)
-        //{
-        //    if (ship.Team == occupiedTeam)
-        //    {
-        //        shipCount += n;
-        //    }
-        //    else
-        //    {
-        //        shipCount -= n;
-        //    }
-        //}
+        public void changeShipCount(Ship ship, int n)
+        {
+            if (ship.getTeam() == occupiedTeam)
+            {
+                shipCount += n;
+            }
+            else
+            {
+                shipCount -= n;
+            }
+        }
 
         public override void Update()
         {
             if (occupiedTeam != null)
             {
-                Console.WriteLine(shipCount);
                 shipCount += (productionRate / 3600);
             }
         }
