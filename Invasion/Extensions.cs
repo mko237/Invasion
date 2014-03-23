@@ -12,13 +12,19 @@ namespace Invasion
        {
            return (float)Math.Atan2(vector.Y, vector.X);
        }
-       public static float ConvertToGlobal(this float orientation, Vector2 origin)
-       {
-           return (float)Math.PI + origin.ToAngle() + orientation;
-       }
        public static Point ToPoint(this Vector2 vector)
        {
            return new Point((int)vector.X, (int)vector.Y);
+       }
+       public static bool WithinRadius(this Vector2 vector, Vector2 center, float radius)
+       {
+           bool inRadius;
+           float distance = Vector2.DistanceSquared(vector,center);
+           if (distance <= radius*radius)
+               inRadius = true;
+           else
+               inRadius = false;
+           return inRadius;
        }
        public static float NextFloat(this Random rand, float minValue, float maxValue)
        {
@@ -29,6 +35,10 @@ namespace Invasion
            double theta = rand.NextDouble() * 2 * Math.PI;
            float length = rand.NextFloat(minLength, maxLength);
            return new Vector2(length * (float)Math.Cos(theta), length * (float)Math.Sin(theta));
+       }
+       public static float ConvertToGlobal(this float orientation, Vector2 origin)
+       {
+           return (float)Math.PI + origin.ToAngle() + orientation;
        }
     }
 }

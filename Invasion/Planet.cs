@@ -7,12 +7,12 @@ using Microsoft.Xna.Framework;
 
 namespace Invasion
 {
+   
     public class Planet : Entity
     {
         private int ID = new int();
         SpriteFont text = Art.Font;
         Vector2 centerTextOffset;
-
         public enum State
         {
             NEUTRAL,
@@ -38,12 +38,12 @@ namespace Invasion
             Position = position;
             color = col;
             ObjectSize = size;
-            Radius = 0.5f * LevelSpawner.imageSize * size;
+            Radius = (0.5f * LevelSpawner.imageSize * size);
             image = Art.Planet;
-            productionRate = productionAccel * 2 * Radius - 50;
+            productionRate = productionAccel * 2 * Radius - 50; 
             ID = id;
             Vector2 textSize = text.MeasureString(ID.ToString());
-            centerTextOffset = textSize * size / 2;
+            centerTextOffset = (textSize) * size / 2;
             occupiedTeam = team;
         }
 

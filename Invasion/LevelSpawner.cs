@@ -11,7 +11,7 @@ namespace Invasion
     public class LevelSpawner
     {
         private static int NumPlanets = 0;
-        private static List<Planet> Planets;
+        private static List<Planet> Planets; //what does this list do?
         private static Random rand = new Random();
         private static Vector2[] Positions;
         private static float[] sizeMultipliers;

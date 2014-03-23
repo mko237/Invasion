@@ -17,7 +17,7 @@ namespace Invasion
             Command = InputDisplay.Command;
             if(Command != null)
             {
-                ShipManager.sendShips(Team.teams[0], 1, Team.teams[0].getHomePlanet(), Team.teams[1].getHomePlanet());
+                ShipManager.sendShips(Team.teams[0],40, Team.teams[0].getHomePlanet(), Team.teams[1].getHomePlanet());
             }
         }
     }
