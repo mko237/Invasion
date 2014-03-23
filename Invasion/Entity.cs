@@ -18,6 +18,7 @@ namespace Invasion
         public float Radius = 20;
         public bool IsExpired;
         public float ObjectSize = 1f;
+        public bool Colliding { get; set; }
 
         public Vector2 Size
         {
