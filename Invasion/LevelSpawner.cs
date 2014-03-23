@@ -11,7 +11,6 @@ namespace Invasion
     public class LevelSpawner
     {
         private static int NumPlanets = 0;
-        private static List<Planet> Planets; //what does this list do?
         private static Random rand = new Random();
         private static Vector2[] Positions;
         private static float[] sizeMultipliers;
@@ -27,7 +26,6 @@ namespace Invasion
         public LevelSpawner(int numplanets)
         {
             NumPlanets = numplanets;
-            Planets = new List<Planet>();
             Positions = new Vector2[NumPlanets];
             sizeMultipliers = new float[NumPlanets];
             imageSize = Art.Planet.Width; // the image is 100 x 100 so i set the cosnstant to this. 
@@ -38,7 +36,7 @@ namespace Invasion
         {
             int attempts = 0;
             
-            int i = Team.teams.Count;
+            int i = TeamManager.teams.Count;
             while(i < NumPlanets) 
             {
                 attempts++;
@@ -84,10 +82,9 @@ namespace Invasion
 
             Console.WriteLine("Positions created: " + PositionsCreated);
 
-            for (int i = Team.teams.Count; i < PositionsCreated; i++)
+            for (int i = TeamManager.teams.Count; i < PositionsCreated; i++)
             {
                 Planet planet = new Planet(Positions[i], Color.White, sizeMultipliers[i], PlanetIDs[i], null);
-                Planets.Add(planet);
                 EntityManager.Add(planet);
             }
         }
@@ -97,7 +94,6 @@ namespace Invasion
             int i = 0;
             foreach (Planet planet in homePlanets)
             {
-                Planets.Add(planet);
                 Positions[i] = planet.Position;
                 sizeMultipliers[i] = 1.0f;
                 EntityManager.Add(planet);

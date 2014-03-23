@@ -9,15 +9,12 @@ namespace Invasion
     {
         private static String Command = null;
         
-        
-        
-        
         public static void Update()
         {
             Command = InputDisplay.Command;
             if(Command != null)
             {
-                ShipManager.sendShips(Team.teams[0],40, Team.teams[0].getHomePlanet(), Team.teams[1].getHomePlanet());
+                ShipManager.sendShips(TeamManager.teams[0],40, TeamManager.teams[0].getHomePlanet(), TeamManager.teams[1].getHomePlanet());
             }
         }
     }

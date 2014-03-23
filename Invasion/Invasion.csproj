@@ -92,6 +92,7 @@
     <Compile Include="Ship.cs" />
     <Compile Include="ShipManager.cs" />
     <Compile Include="Team.cs" />
+    <Compile Include="TeamManager.cs" />
     <Compile Include="TestInputDraw.cs" />
   </ItemGroup>
   <ItemGroup>

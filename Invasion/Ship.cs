@@ -13,8 +13,9 @@ namespace Invasion
         private const float AngSpeed = 0.13f;
         private const float speed = 1.5f;
         float spawnRadius;
+        private Vector2 lastPosition;
+        private Vector2 Direction;
         private Planet Destination;
-        private float destinationRadius;
         private Planet Origin;
 
         private static Random rand = new Random();
@@ -25,9 +26,10 @@ namespace Invasion
         public Ship(Team team, Planet sourcePlanet, Planet destinationPlanet)
         {
             image = Art.Ship;
-            
+     
             Radius = 8;
-            Team = team; 
+            Team = team;
+            Direction = destinationPlanet.Position - sourcePlanet.Position;
             color = team.getColor();
             ObjectSize = 0.65f;
             spawnRadius = sourcePlanet.Radius + 5;
@@ -35,34 +37,13 @@ namespace Invasion
             Origin = sourcePlanet;
             Colliding = true;
             GeneratePosition(sourcePlanet.Position, destinationPlanet.Position);
-            goTo(Position, destinationPlanet);
-
+            getDirection(Position, Destination.Position);
         }
 
         private void GeneratePosition(Vector2 source, Vector2 dest) 
         {
-            if (source.X < dest.X && source.Y > dest.Y) //what do these do?
-            {
-                Position.X = source.X - spawnRadius * (float)Math.Cos((dest - source).ToAngle() + randomAngle);
-                Position.Y = source.Y - spawnRadius * (float)Math.Sin((dest - source).ToAngle() + randomAngle);
-            }
-            else if (source.X > dest.X && source.Y > dest.Y)
-            {
-                Position.X = source.X - spawnRadius * (float)Math.Cos((dest - source).ToAngle() + randomAngle);
-                Position.Y = source.Y - spawnRadius * (float)Math.Sin((dest - source).ToAngle() + randomAngle);
-            }
-            else if (source.X > dest.X && source.Y < dest.Y)
-            {
-                Position.X = source.X - spawnRadius * (float)Math.Cos((dest - source).ToAngle() + randomAngle);
-                Position.Y = source.Y - spawnRadius * (float)Math.Sin((dest - source).ToAngle() + randomAngle);
-            }
-            else if (source.X < dest.X && source.Y < dest.Y)
-            {
-                Position.X = source.X - spawnRadius * (float)Math.Cos((dest - source).ToAngle() + randomAngle);
-                Position.Y = source.Y - spawnRadius * (float)Math.Sin((dest - source).ToAngle() + randomAngle);
-            }
-
-            //Console.WriteLine(randomAngle * 180 / Math.PI);
+            Position.X = source.X - spawnRadius * (float)Math.Cos((dest - source).ToAngle() + randomAngle);
+            Position.Y = source.Y - spawnRadius * (float)Math.Sin((dest - source).ToAngle() + randomAngle);
 
             Orientation = (Position - source).ToAngle();
             LocalOrientation = randomAngle;
@@ -77,8 +58,6 @@ namespace Invasion
         {
             if (!Colliding)
                 getDirection(Position, Destination.Position); //color = Color.Red;
-            //else
-              //  color = Team.getColor(); //getDirection(Position, Destination);
 
             if (Velocity.LengthSquared() > 0) //what is this check for?
             {
@@ -100,10 +79,11 @@ namespace Invasion
 
 
             Position += Velocity;
+            lastPosition = Position;
 
             Colliding = false;
 
-            if (Position.WithinRadius(Destination.Position,Destination.Radius+3f))
+            if (Position.WithinRadius(Destination.Position,Destination.Radius))
                 IsExpired = true;
 
             //delete ships that go off screen 
@@ -115,12 +95,11 @@ namespace Invasion
             if(planet.Position != Destination.Position || planet.Position != Origin.Position)
             {
                 var d = Position - planet.Position;
-                Velocity += 4 * d / (d.LengthSquared() + 1);
+                Velocity += (3f / ObjectSize) * d / (d.LengthSquared() + 1);
+                var r = Position - lastPosition;
+                LocalOrientation = r.ToAngle();
                 Colliding = true; 
-           
             }
-               
-            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -128,16 +107,9 @@ namespace Invasion
             spriteBatch.Draw(image, Position, null, color, LocalOrientation.ConvertToGlobal(Velocity), Size / 2f, ObjectSize, 0, 0);  
         }
 
-        private void goTo(Vector2 position, Planet destination )
-        {
-            Vector2 Direction = destination.Position - position;
-            Direction.Normalize();
-            Velocity = speed * Direction;
-        }
-
         private void getDirection(Vector2 position, Vector2 destination)
         {
-            Vector2 Direction = destination - position;
+            Direction = destination - position;
             Direction.Normalize();
             Velocity = speed * Direction;
              
