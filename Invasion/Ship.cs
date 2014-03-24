@@ -19,7 +19,7 @@ namespace Invasion
         private Planet Origin;
 
         private static Random rand = new Random();
-        private float randomAngle = rand.NextFloat((float)(Math.PI/2), (float)(3*Math.PI/2));//Math.PI);
+        private float randomAngle = rand.NextFloat((float)(Math.PI/2), (float)(-Math.PI/2));
 
        
 
@@ -42,10 +42,9 @@ namespace Invasion
 
         private void GeneratePosition(Vector2 source, Vector2 dest) 
         {
-            Position.X = source.X - spawnRadius * (float)Math.Cos((dest - source).ToAngle() + randomAngle);
-            Position.Y = source.Y - spawnRadius * (float)Math.Sin((dest - source).ToAngle() + randomAngle);
+            Position.X = source.X + spawnRadius * (float)Math.Cos((dest - source).ToAngle() + randomAngle);
+            Position.Y = source.Y + spawnRadius * (float)Math.Sin((dest - source).ToAngle() + randomAngle);
 
-            Orientation = (Position - source).ToAngle();
             LocalOrientation = randomAngle;
         }
 
@@ -57,24 +56,17 @@ namespace Invasion
         public override void Update()
         {
             if (!Colliding)
-                getDirection(Position, Destination.Position); //color = Color.Red;
+                getDirection(Position, Destination.Position);
 
-            if (Velocity.LengthSquared() > 0) //what is this check for?
+            if (Velocity.LengthSquared() > 0) 
             {
                 if (LocalOrientation > 0)
-                {
-                    if (LocalOrientation < Math.PI) 
-                        LocalOrientation += AngSpeed;
-                    else 
-                        LocalOrientation -= AngSpeed;
-                }
+                    LocalOrientation -= AngSpeed;
                 else if (LocalOrientation < 0)
-                {
-                    if (Math.Abs(LocalOrientation) < Math.PI)
-                        LocalOrientation -= AngSpeed;
-                    else
-                        LocalOrientation += AngSpeed;
-                }
+                    LocalOrientation += AngSpeed;
+
+                if (Math.Abs(LocalOrientation - Direction.ToAngle()) < 0.1f)
+                    LocalOrientation = 0;
             }
 
             Position += Velocity;
@@ -84,24 +76,15 @@ namespace Invasion
 
             if (Position.WithinRadius(Destination.Position, Destination.Radius))
             {
-                if (Destination.team == null)
+                if (Destination.team == null || Destination.team.ID != Team.ID)
                 {
+                    Destination.enemyShipCount++;
                     Destination.shipCount--;
-                    if (Destination.shipCount <= 0)
-                    {
-                        Destination.changeTeams(Team);
-                    }
+                    Destination.invadingTeam = Team;
                 }
                 else if (Destination.team.ID == Team.ID)
                     Destination.shipCount++;
-                else if(Destination.team.ID != Team.ID)
-                {
-                    Destination.shipCount--;
-                    if (Destination.shipCount <= 0)
-                    {
-                        Destination.changeTeams(Team);
-                    }
-                }
+
                 IsExpired = true;
             }
 
