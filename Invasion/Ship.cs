@@ -11,8 +11,11 @@ namespace Invasion
     {
         private Team Team;
         private const float AngSpeed = 0.13f;
-        private const float speed = 1.5f;
+        private const float speed = .05f;
         float spawnRadius;
+        private bool wasColliding;
+        private bool lastColliding;
+        private int Collisions = 0;
         private Vector2 lastPosition;
         private Vector2 Direction;
         private Planet Destination;
@@ -56,10 +59,16 @@ namespace Invasion
 
         public override void Update()
         {
+            wasColliding = Collided();
             if (!Colliding)
+            {
                 getDirection(Position, Destination.Position); //color = Color.Red;
-
-            if (Velocity.LengthSquared() > 0) //what is this check for?
+                wasColliding = false;
+            }
+            
+                
+            
+            if (Velocity.LengthSquared() > 0 && !wasColliding) //what is this check for?
             {
                 if (LocalOrientation > 0)
                 {
@@ -76,6 +85,12 @@ namespace Invasion
                         LocalOrientation += AngSpeed;
                 }
             }
+            else if (wasColliding)
+            {
+                var r = Position - lastPosition;
+                LocalOrientation = r.ToAngle();
+            }
+
 
 
             Position += Velocity;
@@ -92,14 +107,20 @@ namespace Invasion
         }
         public void HandleCollisionPlanet(Planet planet)
         {
-            if(planet.Position != Destination.Position || planet.Position != Origin.Position)
+            if(planet.ID != Destination.ID && planet.ID != Origin.ID)
             {
                 var d = Position - planet.Position;
                 Velocity += (3f / ObjectSize) * d / (d.LengthSquared() + 1);
                 var r = Position - lastPosition;
                 LocalOrientation = r.ToAngle();
-                Colliding = true; 
+                Colliding = true;
+                wasColliding = true;
+
             }
+        }
+        private bool Collided()
+        {
+            return lastColliding && !Colliding;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

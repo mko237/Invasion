@@ -10,7 +10,7 @@ namespace Invasion
    
     public class Planet : Entity
     {
-        private int ID = new int();
+        public int ID { get; private set; }
         SpriteFont text = Art.Font;
         Vector2 centerTextOffset;
         public enum State
