@@ -10,7 +10,7 @@ namespace Invasion
     {
         static List<Entity> addedEntities = new List<Entity>();
         static List<Entity> entities = new List<Entity>();
-        static List<Planet> planets = new List<Planet>();
+        public static List<Planet> planets = new List<Planet>();
         static List<Ship> ships = new List<Ship>();
 
         static bool isUpdating;

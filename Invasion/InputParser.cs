@@ -11,10 +11,27 @@ namespace Invasion
         
         public static void Update()
         {
-            Command = InputDisplay.Command;
-            if(Command != null)
+            Command = InputDisplay.Command.Replace("D", String.Empty);
+            Console.WriteLine(Command);
+            int destination = 0;        
+            if(int.TryParse(Command, out destination))
             {
-                ShipManager.sendShips(TeamManager.teams[0],40, TeamManager.teams[0].getHomePlanet(), TeamManager.teams[1].getHomePlanet());
+                int number = 40;
+                List<Planet> planet =  EntityManager.planets.Where(x => x.ID == destination).ToList();
+
+                if (TeamManager.teams[0].getHomePlanet().shipCount > 0)
+                {
+                    if (TeamManager.teams[0].getHomePlanet().shipCount < number)
+                    {
+                        ShipManager.sendShips(TeamManager.teams[0], (int)TeamManager.teams[0].getHomePlanet().shipCount, TeamManager.teams[0].getHomePlanet(), planet[0]);
+                        TeamManager.teams[0].getHomePlanet().shipCount -= (int)TeamManager.teams[0].getHomePlanet().shipCount;
+                    }
+                    else
+                    {
+                        ShipManager.sendShips(TeamManager.teams[0], number, TeamManager.teams[0].getHomePlanet(), planet[0]);
+                        TeamManager.teams[0].getHomePlanet().shipCount -= number;
+                    } 
+                }
             }
         }
     }

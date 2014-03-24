@@ -10,7 +10,7 @@ namespace Invasion
     public class Ship : Entity
     {
         private Team Team;
-        private const float AngSpeed = 0.13f;
+        private const float AngSpeed = 0.2f;
         private const float speed = 1.5f;
         float spawnRadius;
         private Vector2 lastPosition;
@@ -77,14 +77,33 @@ namespace Invasion
                 }
             }
 
-
             Position += Velocity;
-            lastPosition = Position;
 
+            lastPosition = Position;
             Colliding = false;
 
-            if (Position.WithinRadius(Destination.Position,Destination.Radius))
+            if (Position.WithinRadius(Destination.Position, Destination.Radius))
+            {
+                if (Destination.team == null)
+                {
+                    Destination.shipCount--;
+                    if (Destination.shipCount <= 0)
+                    {
+                        Destination.changeTeams(Team);
+                    }
+                }
+                else if (Destination.team.ID == Team.ID)
+                    Destination.shipCount++;
+                else if(Destination.team.ID != Team.ID)
+                {
+                    Destination.shipCount--;
+                    if (Destination.shipCount <= 0)
+                    {
+                        Destination.changeTeams(Team);
+                    }
+                }
                 IsExpired = true;
+            }
 
             //delete ships that go off screen 
             if (!GameRoot.Viewport.Bounds.Contains(Position.ToPoint()))
@@ -92,15 +111,17 @@ namespace Invasion
         }
         public void HandleCollisionPlanet(Planet planet)
         {
-            if(planet.Position != Destination.Position || planet.Position != Origin.Position)
+            if (planet.ID != Destination.ID && planet.ID != Origin.ID)
             {
                 var d = Position - planet.Position;
                 Velocity += (3f / ObjectSize) * d / (d.LengthSquared() + 1);
                 var r = Position - lastPosition;
                 LocalOrientation = r.ToAngle();
-                Colliding = true; 
+                Colliding = true;
             }
         }
+
+        
 
         public override void Draw(SpriteBatch spriteBatch)
         {

@@ -11,13 +11,15 @@ namespace Invasion
     public class Team
     {
         private Planet homePlanet {get; set;}
+        public int ID { get; set; }
         private const float radius = 50;
         private Color Color;
         private int totalShipCount;
         private List<Planet> planetsColonized = new List<Planet>();
 
-        public Team()
+        public Team(int id)
         {
+            ID = id;
             Random rand = new Random();
             int index = rand.Next(TeamManager.Colors.Count);
             Color = TeamManager.Colors[index];
@@ -25,7 +27,7 @@ namespace Invasion
             TeamManager.Colors.TrimExcess();
         }
 
-
+     
 
         public static void GenerateHomePositions(int n) 
         {
@@ -60,9 +62,7 @@ namespace Invasion
                                 break;
                             }
                             else
-                            {
                                 passed = true;
-                            }
                         }
                     }                   
                 }

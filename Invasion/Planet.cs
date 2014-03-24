@@ -10,21 +10,21 @@ namespace Invasion
    
     public class Planet : Entity
     {
-        private int ID = new int();
+        public int ID { get; private set; }
         SpriteFont text = Art.Font;
         Vector2 centerTextOffset;
+
         public enum State
         {
-            NEUTRAL,
-            OCCUPIED
+            OCCUPIED,
+            NEUTRAL
         }
 
         private const float productionAccel = 2.5f;
         private float productionRate;
-        private float shipCount;
-        private Team occupiedTeam;
-
-        State state { get; set; }
+        public float shipCount { get; set; }
+        public Team team;
+        public State state { get; set; }
 
         public Planet()
         {
@@ -44,33 +44,37 @@ namespace Invasion
             ID = id;
             Vector2 textSize = text.MeasureString(ID.ToString());
             centerTextOffset = (textSize) * size / 2;
-            occupiedTeam = team;
-        }
+            this.team = team;
 
-        public void changeShipCount(Ship ship, int n)
-        {
-            if (ship.getTeam() == occupiedTeam)
+            if (team == null)
             {
-                shipCount += n;
+                state = State.NEUTRAL;
+                shipCount = 10;
             }
             else
             {
-                shipCount -= n;
+                state = State.OCCUPIED;
+                shipCount = 200;
             }
+        }
+
+        public void changeTeams(Team team)
+        {
+            this.team = team;
+            color = team.getColor();
         }
 
         public override void Update()
         {
-            if (occupiedTeam != null)
-            {
+            if (team != null)
                 shipCount += (productionRate / 3600);
-            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(image, Position, null, color, Orientation, Size / 2f, ObjectSize, 0, 0);  
             spriteBatch.DrawString(text, ID.ToString(), Position-centerTextOffset, Color.White,Orientation,new Vector2(0,0),ObjectSize,0,0);
+            spriteBatch.DrawString(text, shipCount.ToString(), Position, Color.White, Orientation, new Vector2(0, 0), ObjectSize, 0, 0);
         }
 
             
