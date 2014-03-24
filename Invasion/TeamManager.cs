@@ -15,7 +15,7 @@ namespace Invasion
         public static void GenerateTeams(LevelSpawner level, int n)
         {
             for (int i = 0; i < n; i++)
-                teams.Add(new Team());
+                teams.Add(new Team(i));
 
             Team.GenerateHomePositions(n);
 
