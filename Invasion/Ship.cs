@@ -10,7 +10,7 @@ namespace Invasion
     public class Ship : Entity
     {
         private Team Team;
-        private const float AngSpeed = 0.2f;
+        private const float AngSpeed = .002f;
         private const float speed = 1.5f;
         float spawnRadius;
         private Vector2 lastPosition;
@@ -20,6 +20,9 @@ namespace Invasion
 
         private static Random rand = new Random();
         private float randomAngle = rand.NextFloat((float)(Math.PI/2), (float)(3*Math.PI/2));//Math.PI);
+
+        private bool wasColliding;
+        private int collisions; // used to add a buffer when it collides, to change the behaviour of rotation if this is greater than 0.
 
        
 
@@ -58,8 +61,9 @@ namespace Invasion
         {
             if (!Colliding)
                 getDirection(Position, Destination.Position); //color = Color.Red;
+            
 
-            if (Velocity.LengthSquared() > 0) //what is this check for?
+            if (Velocity.LengthSquared() > 0 && collisions <= 0) //what is this check for?
             {
                 if (LocalOrientation > 0)
                 {
@@ -75,11 +79,21 @@ namespace Invasion
                     else
                         LocalOrientation += AngSpeed;
                 }
+                
+            }
+
+            if (collisions>0)
+            {
+                var r = Position - lastPosition;
+                adjustLocOrientation(r.ToAngle());
+                collisions--;
+
             }
 
             Position += Velocity;
 
             lastPosition = Position;
+            wasColliding = Colliding;
             Colliding = false;
 
             if (Position.WithinRadius(Destination.Position, Destination.Radius))
@@ -109,6 +123,26 @@ namespace Invasion
             if (!GameRoot.Viewport.Bounds.Contains(Position.ToPoint()))
                 IsExpired = true;
         }
+        private bool justCollided()
+        {
+            return (wasColliding && !Colliding);
+        }
+
+        private void adjustLocOrientation(float angle)
+        {
+            
+            if (LocalOrientation > angle)
+            {
+                LocalOrientation -= AngSpeed;
+            }
+            else if (LocalOrientation < angle)
+            {
+               
+                LocalOrientation += AngSpeed;
+            }
+
+           
+        }
         public void HandleCollisionPlanet(Planet planet)
         {
             if (planet.ID != Destination.ID && planet.ID != Origin.ID)
@@ -116,10 +150,13 @@ namespace Invasion
                 var d = Position - planet.Position;
                 Velocity += (3f / ObjectSize) * d / (d.LengthSquared() + 1);
                 var r = Position - lastPosition;
-                LocalOrientation = r.ToAngle();
+                adjustLocOrientation(r.ToAngle().ConvertToGlobal(Velocity));
                 Colliding = true;
+                collisions +=1;
             }
         }
+
+        
 
         
 
@@ -133,6 +170,8 @@ namespace Invasion
             Direction = destination - position;
             Direction.Normalize();
             Velocity = speed * Direction;
+            var r = Position - lastPosition;
+            LocalOrientation = r.ToAngle();
              
         }
     }
