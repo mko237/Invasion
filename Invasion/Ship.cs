@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Invasion
 {
@@ -101,6 +102,9 @@ namespace Invasion
                         Destination.shipCount -= Value;
                         Destination.invadingTeam = Team;
                     } 
+                    //create sound
+                    Cue cue = GameRoot.soundBank.GetCue("Woodblock-04");
+                    cue.Play();
                     //particle creation below
                     for (int i = 0; i < 6; i++)
                     {

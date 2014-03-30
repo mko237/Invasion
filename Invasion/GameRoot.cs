@@ -33,6 +33,10 @@ namespace Invasion
         private static Thread ServerThread = new Thread(InputServer.StartListening);
         
         public static BloomComponent bloom;
+        AudioEngine engine;
+        public static SoundBank soundBank;
+        WaveBank waveBank;
+
                        
         public GameRoot()
         {
@@ -41,8 +45,18 @@ namespace Invasion
             Instance = this;
             //http://msdn.microsoft.com/en-us/library/dd231915%28v=xnagamestudio.31%29.aspx nores on how to load audio engine. had to add xact.dll reference located in programfiles/microsoftxna/.../win/xact.dll 
             //http://xboxforums.create.msdn.com/forums/p/102228/608489.aspx how to find other audio devices.
-            //AudioEngine h = new AudioEngine("C:\Users\Miko\Documents\Xact");
-            //Console.WriteLine(h.RendererDetails);
+            
+            
+            // Initialize audio objects.
+            engine = new AudioEngine(@"Content\Audio\Xact.xgs",TimeSpan.Zero,"{0.0.0.00000000}.{a26fe1c0-9b55-4670-a6fd-76d91685f704}");
+            soundBank = new SoundBank(engine, @"Content\Audio\Sound Bank.xsb");
+            waveBank = new WaveBank(engine, @"Content\Audio\Wave Bank.xwb");
+            
+            //Console.WriteLine("SOUND ENGINE: " + engine.RendererDetails.ToString()); used to determine the redndererID
+            //foreach (var r in engine.RendererDetails)
+            //{
+            //    Console.WriteLine(r.FriendlyName +","+ r.RendererId);
+            //}
             
             graphics.PreferredBackBufferWidth = 1680;//(int)DisplaySize.X-150;
             graphics.PreferredBackBufferHeight = 1050;//(int)DisplaySize.Y -350;
