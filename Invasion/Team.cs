@@ -15,7 +15,7 @@ namespace Invasion
         private const float radius = 50;
         private Color Color;
         private int totalShipCount;
-        private List<Planet> planetsColonized = new List<Planet>();
+        public List<Planet> planetsColonized = new List<Planet>();
 
         public Team(int id)
         {
@@ -68,26 +68,17 @@ namespace Invasion
                 }
 
                 team.homePlanet = new Planet(randPosition, team.Color, 1.0f, i, team);
+                team.planetsColonized.Add(team.homePlanet);
                 i++;
             }
         }
 
         public Planet getHomePlanet()
         {
+            
             return homePlanet;
         }
-
-        public void addPlanet(Planet p) //we may want to implement a a team manager that can keep track of these things. but maybe here will be ok too.
-        {
-            planetsColonized.Add(p);
-        }
-
-        public void removePlanet(Planet p)
-        {
-            //Planet planet = planetsColonized.Where(x => x.ID == p.ID);
-            //planetsColonized.Remove(planet);
-        }
-
+               
         public Color getColor()
         {
             return Color;

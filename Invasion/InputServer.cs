@@ -86,6 +86,7 @@ namespace Invasion
             Console.WriteLine(szData);
             //TestInputDraw.Q.Push(szData);
             TestInputDraw.QQ = szData;
+            TestInputDraw.Update();
             //m_socWorker.Send(m_DataBuffer);
             WaitForData();
         }

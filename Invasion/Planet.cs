@@ -13,6 +13,7 @@ namespace Invasion
         public int ID { get; private set; }
         SpriteFont text = Art.Font;
         Vector2 centerTextOffset;
+        private Random rand = new Random();
 
         public enum State
         {
@@ -27,10 +28,7 @@ namespace Invasion
         public Team team { get; private set; }
         public Team invadingTeam { get; set; }
         public State state { get; set; }
-
-
-        private bool beingInvaded = false;
-
+        
         public Planet()
         {
             //initialize planet here
@@ -67,34 +65,59 @@ namespace Invasion
 
         public void changeTeams()
         {
-            this.team = invadingTeam;
+            if (team != null)
+                TeamManager.removePlanet(team, this);
+            if (invadingTeam != null)
+            {
+                this.team = invadingTeam;
+                TeamManager.addPlanet(team, this);
+            }
             color = team.getColor();
+
+            float hue1 = rand.NextFloat(0, 6);
+            float hue2 = (hue1 + rand.NextFloat(0, 2)) % 6f;
+            Color color1 = ColorUtil.HSVToColor(hue1, 0.5f, 1);
+            Color color2 = ColorUtil.HSVToColor(hue2, 0.5f, 1);
+
+            for (int i = 0; i < (int)(60*(Math.Pow(ObjectSize,2))); i++)
+            {
+                float speed = (18f * (1f - 1 / rand.NextFloat(1, 10)))*(float)(Math.Pow(ObjectSize,2));
+                var state = new ParticleState()
+                {
+                    Velocity = rand.NextVector2(speed, speed),
+                    Type = ParticleType.Planet,
+                    LengthMultiplier = 1
+                };
+
+                Color colorr = Color.Lerp(color1, color2, rand.NextFloat(0, 1));
+                GameRoot.ParticleManager.CreateParticle(Art.LineParticle, Position, color, 190f, 1.5f, state);
+            }
+
         }
 
         public override void Update()
         {
-            if (enemyShipCount > 0)
-                beingInvaded = true;
-            else
-            {
+            if (enemyShipCount < 0)
                 enemyShipCount = 0;
-                beingInvaded = false;
-            }
-
+           
             if (team != null)
             {
                 shipCount += (productionRate / 3600);
-                enemyShipCount -= (productionRate / 3600);
+                if(enemyShipCount > 0)
+                {
+                    enemyShipCount -= (productionRate / 3600);
+                }
+                
             }
 
-            if (shipCount < 0)
+            if (shipCount <= 0)
                 changeTeams();
 
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (beingInvaded)
+            if (enemyShipCount > 0)
             {
                 Rectangle top = new Rectangle(0, 0, LevelSpawner.imageSize, (int)(LevelSpawner.imageSize * (enemyShipCount / (enemyShipCount + shipCount))));
                 Rectangle bottom = new Rectangle(0, (int)(LevelSpawner.imageSize * (enemyShipCount / (enemyShipCount + shipCount))), LevelSpawner.imageSize, (int)(LevelSpawner.imageSize*(shipCount / (enemyShipCount + shipCount))));

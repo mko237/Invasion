@@ -19,7 +19,7 @@ namespace Invasion
         private static int PositionsCreated = 0;
         private const int minDistance = 30;
         private const float maxSize = 0.9f; //determines the max size of planets
-        private const float minSize = 0.26f; //determines the min size of plaents
+        private const float minSize = 0.4f; //determines the min size of plaents
         public static int imageSize;
         
 
@@ -40,6 +40,7 @@ namespace Invasion
             while(i < NumPlanets) 
             {
                 attempts++;
+                Console.WriteLine(attempts);
                 if (attempts > NumPlanets + 1000000) //stops trying to generate planets if a certain threshold is reached
                     break;
                 

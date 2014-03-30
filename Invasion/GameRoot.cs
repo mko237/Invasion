@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+
 using BloomPostprocess;
 
 namespace Invasion
@@ -28,6 +29,7 @@ namespace Invasion
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
         public static Vector2 DisplaySize { get { return new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height); } }
         //private static InputServer inputserver = new InputServer();
+        public static ParticleManager<ParticleState> ParticleManager { get; private set; }
         private static Thread ServerThread = new Thread(InputServer.StartListening);
         
         public static BloomComponent bloom;
@@ -37,6 +39,10 @@ namespace Invasion
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             Instance = this;
+            //http://msdn.microsoft.com/en-us/library/dd231915%28v=xnagamestudio.31%29.aspx nores on how to load audio engine. had to add xact.dll reference located in programfiles/microsoftxna/.../win/xact.dll 
+            //http://xboxforums.create.msdn.com/forums/p/102228/608489.aspx how to find other audio devices.
+            //AudioEngine h = new AudioEngine("C:\Users\Miko\Documents\Xact");
+            //Console.WriteLine(h.RendererDetails);
             
             graphics.PreferredBackBufferWidth = 1680;//(int)DisplaySize.X-150;
             graphics.PreferredBackBufferHeight = 1050;//(int)DisplaySize.Y -350;
@@ -63,21 +69,23 @@ namespace Invasion
            
 
             base.Initialize();
+
+            ParticleManager = new ParticleManager<ParticleState>(1024 * 20, ParticleState.UpdateParticle);
             
             //EntityManager.Add(Planet.Instance);
             Background Background = new Background();
             EntityManager.Add(Background);
 
             // spawns the level and the planets
-            LevelSpawner Level = new LevelSpawner(50);
-            TeamManager.GenerateTeams(Level, 8);
+            LevelSpawner Level = new LevelSpawner(45);
+            TeamManager.GenerateTeams(Level, 2);
             Level.Spawn();
 
             
 
-            Console.WriteLine("in main starting thread");
+            //Console.WriteLine("in main starting thread");
             ServerThread.Start();
-            Console.WriteLine("back to main");
+            //Console.WriteLine("back to main");
             //inputserver.StartListening();
             
         }
@@ -119,6 +127,9 @@ namespace Invasion
             InputDisplay.UpdateInput();
             //InputParser.Update();
             EntityManager.Update();
+            ParticleManager.Update();
+
+            HUD.Update();
 
 
             base.Update(gameTime);
@@ -135,10 +146,12 @@ namespace Invasion
 
             // TODO: Add your drawing code here
 
-            spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
             EntityManager.Draw(spriteBatch);
             TestInputDraw.Draw(spriteBatch);
             InputDisplay.Draw(spriteBatch);
+            ParticleManager.Draw(spriteBatch);
+            HUD.Draw(spriteBatch);
             spriteBatch.End();
 
 

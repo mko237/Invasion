@@ -64,6 +64,10 @@
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Xact, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Xact.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
@@ -77,14 +81,19 @@
     <Compile Include="Background.cs" />
     <Compile Include="BloomComponent.cs" />
     <Compile Include="BloomSettings.cs" />
+    <Compile Include="ColorUtil.cs" />
+    <Compile Include="CubicSpline.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityManager.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="HUD.cs" />
     <Compile Include="InputDisplay.cs" />
     <Compile Include="InputParser.cs" />
     <Compile Include="InputServer.cs" />
     <Compile Include="LevelSpawner.cs" />
     <Compile Include="MathUtil.cs" />
+    <Compile Include="ParticleManager.cs" />
+    <Compile Include="ParticleState.cs" />
     <Compile Include="Planet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
@@ -94,6 +103,7 @@
     <Compile Include="Team.cs" />
     <Compile Include="TeamManager.cs" />
     <Compile Include="TestInputDraw.cs" />
+    <Compile Include="TriDiagonalMatrix.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

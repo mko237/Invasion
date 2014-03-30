@@ -17,12 +17,26 @@ namespace Invasion
         public static ConcurrentStack<string> Q = new ConcurrentStack<string>();
         public static string QQ = null;
         private static Random rand = new Random();
+        public static string Command = String.Empty;
+
+        public static void Update()
+        {
+            if (QQ != null)
+            {
+                string text = null;
+                text = QQ.Replace("\r", string.Empty);
+                text = QQ.Replace("\n", string.Empty);
+                text = QQ.Replace("\0", string.Empty);
+                Command = text;
+                InputParser.Update();
+            }
+        }
        
 
         
         public static void Draw(SpriteBatch spriteBatch)
         {
-            
+           
              
             if (QQ != null)
             {

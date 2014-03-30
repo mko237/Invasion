@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Invasion
 {
@@ -11,7 +12,7 @@ namespace Invasion
         static List<Entity> addedEntities = new List<Entity>();
         static List<Entity> entities = new List<Entity>();
         public static List<Planet> planets = new List<Planet>();
-        static List<Ship> ships = new List<Ship>();
+        public static List<Ship> ships = new List<Ship>();
 
         static bool isUpdating;
 
@@ -63,9 +64,47 @@ namespace Invasion
                AddEntities(entity);
             
             addedEntities.Clear();
-            entities = entities.Where(x => !x.IsExpired).ToList();
+            try
+            {
+                entities = entities.Where(x => !x.IsExpired).ToList();
+            }
+            catch(Exception) 
+            { 
+               
+            }
+
             ships = ships.Where(x => !x.IsExpired).ToList();
+            winCondition();
+            TeamManager.getShipCount();
             
+        }
+
+        private static void  winCondition()
+        {
+            bool gameOver = false;
+            int teamsWithPlanets = 0;
+            foreach(Team team in TeamManager.teams)
+            {
+                if (team.planetsColonized.Count > 0)
+                    teamsWithPlanets++;                                   
+            }
+            
+            gameOver = teamsWithPlanets == 1;         
+            if(gameOver)
+            {
+                newLevel();
+            }
+        }
+        public static void newLevel()
+        {
+            planets = new List<Planet>();
+            ships = new List<Ship>();
+            entities = entities.Where(x => x is Background).ToList();
+            TeamManager.Clear();
+            TeamManager.Colors = new List<Color> { Color.Red, Color.CadetBlue, Color.GreenYellow, Color.Turquoise, Color.Goldenrod, Color.Pink, Color.ForestGreen, Color.Purple, Color.Brown };
+            LevelSpawner Level = new LevelSpawner(45);
+            TeamManager.GenerateTeams(Level, 2);
+            Level.Spawn();
         }
         private static bool IsColliding(ref Entity a, ref Entity b)
         {
