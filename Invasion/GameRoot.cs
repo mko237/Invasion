@@ -139,8 +139,9 @@ namespace Invasion
 
             // TODO: Add your update logic here
             InputDisplay.UpdateInput();
-            //InputParser.Update();
+            InputParser.Update();
             EntityManager.Update();
+            TeamManager.Update();
             ParticleManager.Update();
 
             HUD.Update();

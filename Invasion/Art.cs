@@ -14,6 +14,8 @@ namespace Invasion
         // example:
         //public static Texture2D Player { get; private set; }
         public static Texture2D Planet { get; private set; }
+        public static Texture2D Shield { get; private set; }
+
         public static Texture2D Score { get; private set; }
         public static Texture2D Ship { get; private set; }
         public static Texture2D LineParticle { get; private set; }
@@ -37,6 +39,7 @@ namespace Invasion
             SquareParticle = content.Load<Texture2D>(@"Art/SquareParticle");
             SmallStars = content.Load<Texture2D>(@"Art/Small_Stars");
             BigStars = content.Load<Texture2D>(@"Art/Big_Stars");
+            Shield = content.Load<Texture2D>(@"Art/Shield");
 
         }
     }

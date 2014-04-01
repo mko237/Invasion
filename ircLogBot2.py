@@ -98,7 +98,7 @@ class LogBot(irc.IRCClient):
         user = user.split('!', 1)[0]
         #self.logger.log("<%s> %s" % (user, msg))
         print (msg)
-        self.factory.queue.Enqueue(msg)
+        self.factory.queue.Enqueue(user+"<!>"+msg)
         print "Enqueued"
         
         
@@ -162,7 +162,8 @@ class LogBotFactory(protocol.ClientFactory):
 
     def clientConnectionFailed(self, connector, reason):
         print "connection failed:", reason
-        reactor.stop()
+        #reactor.stop()
+        connector.connect()
 
 def startIRC(queue):
 
@@ -170,7 +171,7 @@ def startIRC(queue):
     log.startLogging(sys.stdout)
     
     # create factory protocol and application
-    f = LogBotFactory('bitcoin', 'd:/downloads/irctest/threadtest.txt', queue)
+    f = LogBotFactory('invtest', 'd:/downloads/irctest/threadtest.txt', queue)
 
     # connect factory to this host and port
     reactor.connectTCP("irc.freenode.net", 6667, f)
@@ -239,7 +240,8 @@ class EchoClientFactory(ClientFactory):
 
     def clientConnectionLost(self, connector, reason):
         print 'connection lost:', reason.getErrorMessage()
-        reactor.stop()
+        #eactor.stop()
+        connector.connect()
 
     def buildProtocol(self, addr):
         p = self.protocol(self.queue)
@@ -283,3 +285,5 @@ if __name__ == '__main__':
     p1.run()
     
     reactor.run()
+
+    

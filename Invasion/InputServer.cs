@@ -85,8 +85,8 @@ namespace Invasion
             System.String szData = new System.String(chars);
             Console.WriteLine(szData);
             //TestInputDraw.Q.Push(szData);
-            TestInputDraw.QQ = szData;
-            TestInputDraw.Update();
+            ServerInput.serverInput = szData;
+            //TestInputDraw.Update();
             //m_socWorker.Send(m_DataBuffer);
             WaitForData();
         }

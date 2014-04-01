@@ -73,35 +73,20 @@ namespace Invasion
                
             }
 
-            ships = ships.Where(x => !x.IsExpired).ToList();
-            winCondition();
-            TeamManager.getShipCount();
+            ships = ships.Where(x => !x.IsExpired).ToList();            
+            
             
         }
 
-        private static void  winCondition()
-        {
-            bool gameOver = false;
-            int teamsWithPlanets = 0;
-            foreach(Team team in TeamManager.teams)
-            {
-                if (team.planetsColonized.Count > 0)
-                    teamsWithPlanets++;                                   
-            }
-            
-            gameOver = teamsWithPlanets == 1;         
-            if(gameOver)
-            {
-                newLevel();
-            }
-        }
+     
         public static void newLevel()
         {
             planets = new List<Planet>();
             ships = new List<Ship>();
             entities = entities.Where(x => x is Background).ToList();
-            TeamManager.Clear();
-            TeamManager.Colors = new List<Color> { Color.Red, Color.CadetBlue, Color.GreenYellow, Color.Turquoise, Color.Goldenrod, Color.Pink, Color.ForestGreen, Color.Purple, Color.Brown };
+            TeamManager.Clear();            
+            TeamManager.colorIndex = new List<int> { 0, 1, 2, 3, 4, 5};
+            TeamManager.usedColorIndexes = new List<int>();
             LevelSpawner Level = new LevelSpawner(45);
             TeamManager.GenerateTeams(Level, 2);
             Level.Spawn();

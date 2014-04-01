@@ -14,6 +14,7 @@ namespace Invasion
         public int ID { get; set; }
         private const float radius = 50;
         private Color Color;
+        public string colorText;
         private int totalShipCount;
         public List<Planet> planetsColonized = new List<Planet>();
 
@@ -21,10 +22,23 @@ namespace Invasion
         {
             ID = id;
             Random rand = new Random();
-            int index = rand.Next(TeamManager.Colors.Count);
-            Color = TeamManager.Colors[index];
-            TeamManager.Colors.RemoveAt(index);
-            TeamManager.Colors.TrimExcess();
+            bool loop = true;
+            int i = 0;
+            while(loop)
+            {
+                i = rand.Next(TeamManager.colorIndex.Count);
+                if(TeamManager.usedColorIndexes.All(x => x != i))
+                {
+                    TeamManager.usedColorIndexes.Add(i);
+                    loop = false;
+                }
+            }           
+            int index = TeamManager.colorIndex[i];
+            colorText = TeamManager.Colors[index].Item1;
+            Color = TeamManager.Colors[index].Item2;
+            TeamManager.colorIndex.RemoveAt(i);
+            TeamManager.colorIndex.TrimExcess();
+            
         }
 
      

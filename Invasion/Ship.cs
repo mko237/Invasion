@@ -121,7 +121,12 @@ namespace Invasion
                     }
                 }
                 else if (Destination.team.ID == Team.ID)
-                    Destination.shipCount += Value;    
+                {
+                    Destination.shipCount += Value;
+                    if(Destination.enemyShipCount > 0)
+                        Destination.enemyShipCount -= Value;
+                }
+                   
                             
                 
                 IsExpired = true;

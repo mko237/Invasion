@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Invasion
 {
@@ -21,8 +22,9 @@ namespace Invasion
             NEUTRAL
         }
 
-        private const float productionAccel = 2.5f;
-        private float productionRate;
+        private float productionAccel = (185)/((1-LevelSpawner.minSize)*LevelSpawner.imageSize);
+        private float b = 200-(185/(1-LevelSpawner.minSize));
+        public float productionRate;
         public float shipCount { get; set; }
         public float enemyShipCount { get; set; }
         public Team team { get; private set; }
@@ -42,7 +44,7 @@ namespace Invasion
             color = col;
             ObjectSize = size;
             Radius = (0.5f * LevelSpawner.imageSize * size);
-            productionRate = productionAccel * 2 * Radius - 50;
+            productionRate = productionAccel *2* Radius + b;
             ID = id;
             this.team = team;
             this.invadingTeam = team;
@@ -73,6 +75,8 @@ namespace Invasion
                 TeamManager.addPlanet(team, this);
             }
             color = team.getColor();
+            Cue cue = GameRoot.soundBank.GetCue("Metal");
+            cue.Play();
 
             float hue1 = rand.NextFloat(0, 6);
             float hue2 = (hue1 + rand.NextFloat(0, 2)) % 6f;
@@ -117,6 +121,8 @@ namespace Invasion
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            //new Color(color.R,color.G,color.B,1f)
+            spriteBatch.Draw(Art.Shield, Position+new Vector2(-3.5f*ObjectSize,-2.9f*ObjectSize), null, color, Orientation, Size / 2f, ObjectSize+(ObjectSize*.049f), 0, 0);
             if (enemyShipCount > 0)
             {
                 Rectangle top = new Rectangle(0, 0, LevelSpawner.imageSize, (int)(LevelSpawner.imageSize * (enemyShipCount / (enemyShipCount + shipCount))));
@@ -129,6 +135,7 @@ namespace Invasion
 
             spriteBatch.DrawString(text, ID.ToString(), Position-centerTextOffset, Color.White,Orientation,new Vector2(0,0),ObjectSize,0,0);
             spriteBatch.DrawString(text, shipCount.ToString("0"), Position, Color.White, Orientation, new Vector2(0, 0), ObjectSize, 0, 0);
+            
         }
 
             
