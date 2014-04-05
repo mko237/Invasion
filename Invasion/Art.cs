@@ -15,7 +15,7 @@ namespace Invasion
         //public static Texture2D Player { get; private set; }
         public static Texture2D Planet { get; private set; }
         public static Texture2D Shield { get; private set; }
-
+        public static Texture2D winBack { get; private set; }
         public static Texture2D Score { get; private set; }
         public static Texture2D Ship { get; private set; }
         public static Texture2D LineParticle { get; private set; }
@@ -25,6 +25,7 @@ namespace Invasion
         public static Texture2D BigStars { get; private set; }
 
         public static SpriteFont Font { get; private set; }
+        public static SpriteFont Font2 { get; private set; }
 
 
         public static void Load(ContentManager content)
@@ -40,6 +41,8 @@ namespace Invasion
             SmallStars = content.Load<Texture2D>(@"Art/Small_Stars");
             BigStars = content.Load<Texture2D>(@"Art/Big_Stars");
             Shield = content.Load<Texture2D>(@"Art/Shield");
+            winBack = content.Load<Texture2D>(@"Art/winbackground");
+            Font2 = content.Load<SpriteFont>(@"Art/Font2");
 
         }
     }

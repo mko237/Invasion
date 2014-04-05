@@ -12,12 +12,12 @@ namespace Invasion
 {
     class TestInputDraw
     {
-        private SpriteFont Font1;
+        //private SpriteFont Font1;
         private static Vector2 Position;
         public static ConcurrentStack<string> Q = new ConcurrentStack<string>();
         public static string QQ = null;
         private static Random rand = new Random();
-        public static string Command = "BIG RED SEXY";
+        public static string Command = "Started";
 
         public static void Update()
         {

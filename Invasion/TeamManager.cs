@@ -15,15 +15,18 @@ namespace Invasion
         public static List<Tuple<String, Color>> Colors = new List<Tuple<String, Color>> 
         { 
             new Tuple<String, Color>("RED", Color.Red), 
-            new Tuple<String, Color>("BLUE",Color.DeepSkyBlue), 
-            new Tuple<String, Color>("YELLOW",Color.Yellow),           
+            new Tuple<String, Color>("BLUE",Color.DeepSkyBlue),
+            new Tuple<String, Color>("YELLOW",Color.Yellow),          
             new Tuple<String, Color>("PINK",Color.HotPink), 
             new Tuple<String, Color>("GREEN",Color.LawnGreen), 
-            new Tuple<String, Color>("PURPLE",Color.MediumVioletRed), 
+            new Tuple<String, Color>("PURPLE",Color.MediumVioletRed),
              
         };
-        public static List<int> colorIndex = new List<int> { 0, 1, 2, 3, 4, 5};
+        public static List<int> colorIndex = new List<int> { 0, 1, 2 , 3, 4, 5};
         public static List<int> usedColorIndexes = new List<int>();
+        public static int winWait = 0;
+        private static Team winningTeam;
+        private static bool gameOver = false;
 
         public static void GenerateTeams(LevelSpawner level, int n)
         {
@@ -67,18 +70,60 @@ namespace Invasion
         public static void Update()
         {
             //determines win condition
-            bool gameOver = false;
-            int teamsWithPlanets = 0;
-            foreach(Team team in teams)
+            //gameOver = true;
+           
+            //int teamsWithPlanets = 0;
+            int teamsWithShips = 0;
+
+            //winningTeam = teams[0];
+
+            if (!gameOver)
             {
-                if (team.planetsColonized.Count > 0)
-                    teamsWithPlanets++;                                   
+                for(int i = 0; i<teamShipCount.Count(); i++)
+                {
+                    if(teamShipCount[i]>0)
+                    {
+                        teamsWithShips++;
+                        winningTeam = teams[i];
+                    }
+
+
+                }
+                //foreach (Team team in teams)
+                //{
+                //    if (team.planetsColonized.Count > 0)
+                //    {
+                //        teamsWithPlanets++;
+                //        winningTeam = team;
+                //    }
+
+                //}
             }
-            
-            gameOver = teamsWithPlanets == 1;         
+
+            gameOver = teamsWithShips == 1;         
             if(gameOver)
             {
-                EntityManager.newLevel();
+                WinScreen.winTeam = winningTeam;
+                if(winWait<400)
+                {
+                    winWait++;
+                    WinScreen.drawScreen = true;
+
+                }
+                else
+                {
+                    winWait = 0;
+                    gameOver = false;
+                    WinScreen.drawScreen = false;                    
+                    EntityManager.newLevel();
+                }
+                if (winWait == 399)
+                {
+                    WinScreen.teamPosition = new Vector2(-50, GameRoot.ScreenSize.Y / 2 - 50);
+                    WinScreen.victoryPosition = new Vector2(GameRoot.ScreenSize.X + 350, GameRoot.ScreenSize.Y / 2 + 150);
+                }
+                    WinScreen.Update();
+                
             }
 
             //refreshes total team production rate and ship count 

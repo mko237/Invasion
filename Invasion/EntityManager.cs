@@ -53,7 +53,7 @@ namespace Invasion
         public static void Update()
         {
             isUpdating = true;
-            HandleCollisions();
+            //HandleCollisions();
 
             foreach (var entity in entities)
                 entity.Update();
@@ -84,7 +84,9 @@ namespace Invasion
             planets = new List<Planet>();
             ships = new List<Ship>();
             entities = entities.Where(x => x is Background).ToList();
-            TeamManager.Clear();            
+            TeamManager.Clear();
+            Players.Team1 = new List<string>();
+            Players.Team2 = new List<string>();
             TeamManager.colorIndex = new List<int> { 0, 1, 2, 3, 4, 5};
             TeamManager.usedColorIndexes = new List<int>();
             LevelSpawner Level = new LevelSpawner(45);

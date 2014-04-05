@@ -16,8 +16,8 @@ Global Settings
     Header File = Xact.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 30362567;
-    Last Modified High = 1004462783;
+    Last Modified Low = 625474259;
+    Last Modified High = 30363712;
 
     Category
     {
@@ -225,8 +225,14 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Bank Last Revised Low = 3675347153;
-    Bank Last Revised High = 30362732;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 1016077893;
+    PC Bank Last Modified High = 30363699;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+    Bank Last Revised Low = 873729751;
+    Bank Last Revised High = 30363699;
 
     Wave
     {
@@ -246,8 +252,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3683100160;
-            Last Modified High = 29923040;
+            Last Modified Low = 4085451712;
+            Last Modified High = 30363118;
         }
     }
 
@@ -273,6 +279,29 @@ Wave Bank
             Last Modified High = 29923039;
         }
     }
+
+    Wave
+    {
+        Name = winNoteInvasion;
+        File = D:\11-11-12 Project\winNoteInvasion.wav;
+        Build Settings Last Modified Low = 831657345;
+        Build Settings Last Modified High = 30363699;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 2822400;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 788514877;
+            Last Modified High = 30363699;
+        }
+    }
 }
 
 Sound Bank
@@ -282,6 +311,10 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
+    Bank Last Modified Low = 625484259;
+    Bank Last Modified High = 30363712;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
@@ -377,6 +410,53 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = winNoteInvasion;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Music;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = winNoteInvasion;
+                    Entry Index = 2;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = Woodblock-04;
@@ -412,6 +492,26 @@ Sound Bank
         {
             Name = Metal;
             Index = 1;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = winNoteInvasion;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = winNoteInvasion;
+            Index = 2;
             Weight Min = 0;
             Weight Max = 255;
         }

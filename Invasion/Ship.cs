@@ -83,8 +83,8 @@ namespace Invasion
                 else if (LocalOrientation < 0)
                     LocalOrientation += AngSpeed;
 
-                if (Math.Abs(LocalOrientation - Direction.ToAngle()) < 0.1f)
-                    LocalOrientation = Direction.ToAngle();
+                if (Math.Abs(LocalOrientation) < 0.1f)
+                    LocalOrientation = 0;
             }
 
             Position += Velocity;

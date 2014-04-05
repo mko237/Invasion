@@ -48,30 +48,30 @@ namespace Invasion
                         Command = lastCommand;
 
                     #region debug parse logic
-                    if (int.TryParse(Command, out destination) && destination <= EntityManager.planets.Count)//kill this for live version
-                    {
+                    //if (int.TryParse(Command, out destination) && destination <= EntityManager.planets.Count)//kill this for live version
+                    //{
 
-                        List<Planet> planet = EntityManager.planets.Where(x => x.ID == destination).ToList();
-                        //if (TeamManager.teams[0].getHomePlanet().shipCount < number)
-                        //{
-                        //    ShipManager.sendShips(TeamManager.teams[0], (int)TeamManager.teams[0].getHomePlanet().shipCount, TeamManager.teams[0].getHomePlanet(), planet[0]);
-                        //    TeamManager.teams[0].getHomePlanet().shipCount = 0;
-                        //}
-                        //else
-                        //{
+                    //    List<Planet> planet = EntityManager.planets.Where(x => x.ID == destination).ToList();
+                    //    //if (TeamManager.teams[0].getHomePlanet().shipCount < number)
+                    //    //{
+                    //    //    ShipManager.sendShips(TeamManager.teams[0], (int)TeamManager.teams[0].getHomePlanet().shipCount, TeamManager.teams[0].getHomePlanet(), planet[0]);
+                    //    //    TeamManager.teams[0].getHomePlanet().shipCount = 0;
+                    //    //}
+                    //    //else
+                    //    //{
 
-                        //    TeamManager.teams[0].getHomePlanet().shipCount -= number;
-                        //}  
-                        ShipManager.sendShips(TeamManager.teams[0], percentage, TeamManager.teams[0].getHomePlanet(), planet[0]);
-                    }
-                    else if (Command == "")//kill this for live version
-                    {
-                        ShipManager.sendShips(TeamManager.teams[0], percentage, TeamManager.teams[0].getHomePlanet(), TeamManager.teams[1].getHomePlanet());
-                    }
-                    else if (Command == "L")//kill this for live version
-                    {
-                        EntityManager.newLevel();
-                    }
+                    //    //    TeamManager.teams[0].getHomePlanet().shipCount -= number;
+                    //    //}  
+                    //    ShipManager.sendShips(TeamManager.teams[0], percentage, TeamManager.teams[0].getHomePlanet(), planet[0]);
+                    //}
+                    //else if (Command == "")//kill this for live version
+                    //{
+                    //    ShipManager.sendShips(TeamManager.teams[0], percentage, TeamManager.teams[0].getHomePlanet(), TeamManager.teams[1].getHomePlanet());
+                    //}
+                    //else if (Command == "L")//kill this for live version
+                    //{
+                    //    EntityManager.newLevel();
+                    //}
                     #endregion
 
                     if (Command != "")

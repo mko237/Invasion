@@ -42,6 +42,18 @@ from time import sleep
 from multiprocessing import Process,Queue,Lock
 
 
+def isCommand(s):
+        firstDigit = s[0]
+        try:
+            int(firstDigit)
+            return True
+        except:
+            if firstDigit == "*":
+                return True
+            else:
+                return False
+
+
 class MessageLogger:
     """
     An independent logger class (because separation of application
@@ -49,6 +61,7 @@ class MessageLogger:
     """
     #def __init__(self, file):
         #self.file = file
+    
     def __init__(self,file = None,queue = None):
         self.queue = queue
     def log(self, message):
@@ -68,7 +81,8 @@ class MessageLogger:
 class LogBot(irc.IRCClient):
     """A logging IRC bot."""
     
-    nickname = "miko2378"
+    nickname = "InvasionOnTwitch"
+    password = "oauth:l7g10vpxshg7beo4mmtptzlra39qnfy"
     
     def connectionMade(self):
         irc.IRCClient.connectionMade(self)
@@ -92,13 +106,17 @@ class LogBot(irc.IRCClient):
     def joined(self, channel):
         """This will get called when the bot joins the channel."""
         #self.logger.log("[I have joined %s]" % channel)
+    
+            
+        
 
     def privmsg(self, user, channel, msg):
         """This will get called when the bot receives a message."""
         user = user.split('!', 1)[0]
         #self.logger.log("<%s> %s" % (user, msg))
-        print (msg)
-        self.factory.queue.Enqueue(user+"<!>"+msg)
+        #print (msg)
+        if isCommand(msg):
+            self.factory.queue.Enqueue(user+"<!>"+msg)
         print "Enqueued"
         
         
@@ -171,10 +189,10 @@ def startIRC(queue):
     log.startLogging(sys.stdout)
     
     # create factory protocol and application
-    f = LogBotFactory('invtest', 'd:/downloads/irctest/threadtest.txt', queue)
+    f = LogBotFactory('invasionontwitch', 'd:/downloads/irctest/threadtest.txt', queue)
 
     # connect factory to this host and port
-    reactor.connectTCP("irc.freenode.net", 6667, f)
+    reactor.connectTCP("irc.twitch.tv", 6667, f)
 
     # run bot
     #reactor.run()

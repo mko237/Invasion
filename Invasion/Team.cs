@@ -15,7 +15,7 @@ namespace Invasion
         private const float radius = 50;
         private Color Color;
         public string colorText;
-        private int totalShipCount;
+        //private int totalShipCount;
         public List<Planet> planetsColonized = new List<Planet>();
 
         public Team(int id)
@@ -39,6 +39,11 @@ namespace Invasion
             TeamManager.colorIndex.RemoveAt(i);
             TeamManager.colorIndex.TrimExcess();
             
+        }
+
+        public Team()
+        {
+            // TODO: Complete member initialization
         }
 
      

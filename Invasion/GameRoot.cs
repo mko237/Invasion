@@ -36,6 +36,8 @@ namespace Invasion
         AudioEngine engine;
         public static SoundBank soundBank;
         WaveBank waveBank;
+        AudioCategory effectsCategory;
+        AudioCategory musicCategory;
 
                        
         public GameRoot()
@@ -52,14 +54,15 @@ namespace Invasion
             soundBank = new SoundBank(engine, @"Content\Audio\Sound Bank.xsb");
             waveBank = new WaveBank(engine, @"Content\Audio\Wave Bank.xwb");
             
+            
             //Console.WriteLine("SOUND ENGINE: " + engine.RendererDetails.ToString()); used to determine the redndererID
             //foreach (var r in engine.RendererDetails)
             //{
             //    Console.WriteLine(r.FriendlyName +","+ r.RendererId);
             //}
             
-            graphics.PreferredBackBufferWidth = 1680;//(int)DisplaySize.X-150;
-            graphics.PreferredBackBufferHeight = 1050;//(int)DisplaySize.Y -350;
+            graphics.PreferredBackBufferWidth = 1600;//(int)DisplaySize.X-150;
+            graphics.PreferredBackBufferHeight = 1000;//(int)DisplaySize.Y -350;
 
             bloom = new BloomComponent(this);
             Components.Add(bloom);
@@ -143,6 +146,12 @@ namespace Invasion
             EntityManager.Update();
             TeamManager.Update();
             ParticleManager.Update();
+            //engine.Update();
+            effectsCategory = engine.GetCategory("Default");
+            musicCategory = engine.GetCategory("Music");
+            effectsCategory.SetVolume(.2f);//adjust volume here
+            musicCategory.SetVolume(2f);
+            
 
             HUD.Update();
 
@@ -166,7 +175,12 @@ namespace Invasion
             TestInputDraw.Draw(spriteBatch);
             InputDisplay.Draw(spriteBatch);
             ParticleManager.Draw(spriteBatch);
+            WinScreen.Draw(spriteBatch);
             HUD.Draw(spriteBatch);
+            spriteBatch.End();
+
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            WinScreen.DrawText(spriteBatch);
             spriteBatch.End();
 
 
