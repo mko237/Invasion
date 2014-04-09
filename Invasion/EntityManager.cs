@@ -13,6 +13,7 @@ namespace Invasion
         static List<Entity> entities = new List<Entity>();
         public static List<Planet> planets = new List<Planet>();
         public static List<Ship> ships = new List<Ship>();
+        public static Tuple<bool,Team> giveUp= new Tuple<bool,Team>(false,null);
 
         static bool isUpdating;
 

@@ -17,6 +17,7 @@ namespace Invasion
         public string colorText;
         //private int totalShipCount;
         public List<Planet> planetsColonized = new List<Planet>();
+        public float giveUp = 0; 
 
         public Team(int id)
         {

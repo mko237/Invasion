@@ -16,8 +16,8 @@ Global Settings
     Header File = Xact.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 625474259;
-    Last Modified High = 30363712;
+    Last Modified Low = 1536904493;
+    Last Modified High = 30363762;
 
     Category
     {
@@ -227,12 +227,10 @@ Wave Bank
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 1016077893;
-    PC Bank Last Modified High = 30363699;
-    Header Last Modified Low = 0;
-    Header Last Modified High = 0;
-    Bank Last Revised Low = 873729751;
-    Bank Last Revised High = 30363699;
+    PC Bank Last Modified Low = 1537024500;
+    PC Bank Last Modified High = 30363762;
+    Bank Last Revised Low = 1381655614;
+    Bank Last Revised High = 30363762;
 
     Wave
     {
@@ -260,9 +258,9 @@ Wave Bank
     Wave
     {
         Name = Metal;
-        File = ..\..\..\..\..\..\..\Muisc\Samples\Samples & Sounds\Samples & Sounds\Metal.wav;
-        Build Settings Last Modified Low = 3592582419;
-        Build Settings Last Modified High = 30362732;
+        File = Metal.wav;
+        Build Settings Last Modified Low = 1381655614;
+        Build Settings Last Modified High = 30363762;
 
         Cache
         {
@@ -283,9 +281,9 @@ Wave Bank
     Wave
     {
         Name = winNoteInvasion;
-        File = D:\11-11-12 Project\winNoteInvasion.wav;
-        Build Settings Last Modified Low = 831657345;
-        Build Settings Last Modified High = 30363699;
+        File = winNoteInvasion.wav;
+        Build Settings Last Modified Low = 3676518510;
+        Build Settings Last Modified High = 30363761;
 
         Cache
         {
@@ -311,8 +309,8 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 625484259;
-    Bank Last Modified High = 30363712;
+    Bank Last Modified Low = 1537074503;
+    Bank Last Modified High = 30363762;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 

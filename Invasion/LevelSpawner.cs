@@ -40,7 +40,7 @@ namespace Invasion
             while(i < NumPlanets) 
             {
                 attempts++;
-                Console.WriteLine(attempts);
+                //Console.WriteLine(attempts);
                 if (attempts > NumPlanets + 1000000) //stops trying to generate planets if a certain threshold is reached
                     break;
                 
@@ -81,7 +81,7 @@ namespace Invasion
         {
             GeneratePositions();      
 
-            Console.WriteLine("Positions created: " + PositionsCreated);
+            //Console.WriteLine("Positions created: " + PositionsCreated);
 
             for (int i = TeamManager.teams.Count; i < PositionsCreated; i++)
             {

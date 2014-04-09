@@ -43,9 +43,9 @@ namespace Invasion
                 //calculate and create ships string
                 string ships = ((int)TeamManager.teamShipCount[i]).ToString();
                 float tempships;
-                if ((int)TeamManager.teamProductionRate[i] > 1000)
+                if ((int)TeamManager.teamShipCount[i] > 1000)
                 {
-                    tempships = TeamManager.teamShipCount[i] / 1000f;
+                    tempships = (float)TeamManager.teamShipCount[i] / 1000f;
                     ships = tempships.ToString("0.00") + "K";
                 }
                 string s =  "Ships: " + ships;

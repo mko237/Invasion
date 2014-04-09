@@ -43,15 +43,27 @@ from multiprocessing import Process,Queue,Lock
 
 
 def isCommand(s):
+        #print 'checking cmd'
         firstDigit = s[0]
+        S = s.upper()
         try:
             int(firstDigit)
             return True
         except:
             if firstDigit == "*":
                 return True
+            elif S == "GIVE UP" or S == "GIVEUP" :
+                    #print "give up true"
+                    return True
             else:
                 return False
+def cleanMsg(s):
+        S = s
+        if s[0] == 'g' or s[0] == 'G':
+                S = s.upper()
+        return S
+        
+        
 
 
 class MessageLogger:
@@ -67,7 +79,7 @@ class MessageLogger:
     def log(self, message):
         """Write a message to the file."""
         #self.queue.Enqueue(message)
-        print 'wrote to q'
+        #print 'wrote to q'
         
         #timestamp = time.strftime("[%H:%M:%S]", time.localtime(time.time()))
         #self.file.write('%s %s\n' % (timestamp, message))
@@ -116,8 +128,8 @@ class LogBot(irc.IRCClient):
         #self.logger.log("<%s> %s" % (user, msg))
         #print (msg)
         if isCommand(msg):
-            self.factory.queue.Enqueue(user+"<!>"+msg)
-        print "Enqueued"
+            self.factory.queue.Enqueue(user+"<!>"+cleanMsg(msg))
+        #print "Enqueued"
         
         
         
@@ -211,11 +223,11 @@ class EchoClient(LineReceiver):
     def sendQueue(self):
         if( not self.queue.Empty()):
             self.sendLine(queue.Dequeue())
-            print self.queue.Count()
+            #print self.queue.Count()
     def connectionMade(self):
         #self.sendLine("Still goin..." + str(self.x))
         #self.x+=1
-        print 'connected'
+        #print 'connected'
         self.sendLine('connected')
         
         self.task_id.start(.008)

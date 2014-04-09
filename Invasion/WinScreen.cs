@@ -10,6 +10,7 @@ namespace Invasion
     public static class WinScreen
     {
         public static bool drawScreen = false;
+        public static bool lastDrawScreen = false;
 
         public static Team winTeam = null;
         public static Vector2 teamPosition = new Vector2(-50,GameRoot.ScreenSize.Y/2-50);
@@ -21,10 +22,12 @@ namespace Invasion
         //private static Vector2 origin = text.MeasureString(teamText) / 2;
         private static string teamText = "TEAM";
         private static string victoryText = "WINS!";
+        public static bool playMusic = true;
 
 
         public static void Update()
         {
+
             if (drawScreen)
             {
                 teamText = winTeam.colorText;
@@ -58,7 +61,7 @@ namespace Invasion
                     }
                 }
 
-
+                
             }
             
         }
@@ -137,14 +140,16 @@ namespace Invasion
         }
         public static void Draw(SpriteBatch spriteBatch)
         {
-           
+            if( !lastDrawScreen && drawScreen)
+                playMusic = true;
             if(drawScreen)
             {
-                if(TeamManager.winWait == 3)
+                if(playMusic)
                 {
                     //create sound
                     Cue cue = GameRoot.soundBank.GetCue("winNoteInvasion");
                     cue.Play();
+                    playMusic = false;
                 }
                 
                 
@@ -153,6 +158,7 @@ namespace Invasion
                 //http://erikskoglund.wordpress.com/2009/09/10/super-simple-text-outlining-in-xna/
                
             }
+            lastDrawScreen = drawScreen;
             
         }
         public static void DrawText(SpriteBatch spriteBatch)

@@ -36,7 +36,7 @@ namespace Invasion
                 // create the call back for any client connections...
                 m_socListener.BeginAccept(new AsyncCallback(OnClientConnect), null);
 
-                Console.WriteLine("SERVER STARTED");
+                //Console.WriteLine("SERVER STARTED");
                 //cmdListen.Enabled = false;
             }
             catch (SocketException se)
@@ -49,7 +49,7 @@ namespace Invasion
         {
             try
             {
-                Console.WriteLine("client connected");
+                //Console.WriteLine("client connected");
                 m_socWorker = m_socListener.EndAccept(asyn);
                 WaitForData();
                 
@@ -67,7 +67,7 @@ namespace Invasion
 
         public static void WaitForData()
         {
-            Console.WriteLine("waiting for data");
+            //Console.WriteLine("waiting for data");
             if (pfnCallBack == null)
                 pfnCallBack = new AsyncCallback(OnDataReceived);
             // now start to listen for any data...
@@ -75,7 +75,7 @@ namespace Invasion
         }
         public static void OnDataReceived(IAsyncResult asyn)
         {
-            Console.WriteLine("data received");
+            //Console.WriteLine("data received");
             //end receive...
             int iRx = 0;
             iRx = m_socWorker.EndReceive(asyn);
@@ -83,7 +83,7 @@ namespace Invasion
             System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
             int charLen = d.GetChars(m_DataBuffer, 0, iRx, chars, 0);
             System.String szData = new System.String(chars);
-            Console.WriteLine(szData);
+            //Console.WriteLine(szData);
             //TestInputDraw.Q.Push(szData);
             ServerInput.serverInput = szData;
             //TestInputDraw.Update();

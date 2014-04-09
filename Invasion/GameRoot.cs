@@ -62,7 +62,7 @@ namespace Invasion
             //}
             
             graphics.PreferredBackBufferWidth = 1600;//(int)DisplaySize.X-150;
-            graphics.PreferredBackBufferHeight = 1000;//(int)DisplaySize.Y -350;
+            graphics.PreferredBackBufferHeight = 900;//(int)DisplaySize.Y -350;
 
             bloom = new BloomComponent(this);
             Components.Add(bloom);

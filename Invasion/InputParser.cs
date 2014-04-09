@@ -73,6 +73,29 @@ namespace Invasion
                     //    EntityManager.newLevel();
                     //}
                     #endregion
+                    //if(Command == "1111")
+                    //{
+                    //    Players.Team2.Add(GameRoot.Instance.TargetElapsedTime.Seconds.ToString());
+                    //}
+                    //if (Command == "0000")
+                    //{
+                    //    Players.Team1.Add(GameRoot.Instance.TargetElapsedTime.Seconds.ToString());
+                    //}
+
+                    if(Command == "GIVEUP" || Command == "GIVE UP")
+                    {
+                        //Console.WriteLine("GIVE UP RECIEVED!!!!");
+                        if (Players.Team1.Contains(player))
+                        {
+                            TeamManager.teams[0].giveUp += 100f * ((1/(float)Players.Team1.Count)/.6f);
+                            //Console.WriteLine(TeamManager.teams[0].giveUp);
+                        }
+                        if (Players.Team2.Contains(player))
+                        {
+                            TeamManager.teams[1].giveUp += 100f * ((1 / (float)Players.Team2.Count) / .6f);
+                        }
+
+                    }
 
                     if (Command != "")
                     {
@@ -95,7 +118,7 @@ namespace Invasion
                             //char fromTeam = string.IsNullOrEmpty(Command) ? ' ' : fromCommand[0];
                             // string fromPlanet = middleMarker == -1? " " : fromCommand.Substring(1,middleMarker -1);
                             //Console.WriteLine(fromPlanet);
-                            int intFromPlanet;
+                            //int intFromPlanet;
                             //string toCommand = middleMarker == -1 ? " " : Command.Substring(middleMarker + 12);
                             string toCommand = middleMarker == -1 ? " " : Command.Substring(middleMarker + 1);//remove plus twelve (its the count of OemSemicolon)
                             int toPlanet;
@@ -148,14 +171,15 @@ namespace Invasion
                                             if (Players.Team1.Contains(player))
                                             {
                                                 playerTeam = 0;
-                                                percentage = (float)((1 / Players.Team1.Count) / fromCommandList.Count);
+                                                percentage = (float)((1 / (float)Players.Team1.Count) / fromCommandList.Count);
+                                                //Console.WriteLine("percentage :" + percentage);
                                                 checkTeams = false;
 
                                             }
                                             else if (Players.Team2.Contains(player))
                                             {
                                                 playerTeam = 1;
-                                                percentage = (float)((1 / Players.Team2.Count) / fromCommandList.Count);
+                                                percentage = (float)((1 / (float)Players.Team2.Count) / fromCommandList.Count);
                                                 checkTeams = false;
                                             }
                                             else
@@ -164,7 +188,7 @@ namespace Invasion
                                                 {
                                                     Players.Team1.Add(player);
                                                     playerTeam = 0;
-                                                    percentage = (float)((1 / Players.Team1.Count) / fromCommandList.Count);
+                                                    percentage = (float)((1 /(float) Players.Team1.Count) / fromCommandList.Count);
                                                     checkTeams = false;
 
                                                 }
@@ -172,7 +196,7 @@ namespace Invasion
                                                 {
                                                     Players.Team2.Add(player);
                                                     playerTeam = 1;
-                                                    percentage = (float)((1 / Players.Team2.Count) / fromCommandList.Count);
+                                                    percentage = (float)((1 / (float)Players.Team2.Count) / fromCommandList.Count);
                                                     checkTeams = false;
 
                                                 }
@@ -199,14 +223,14 @@ namespace Invasion
                                     if (Players.Team1.Contains(player))
                                     {
                                         playerTeam = 0;
-                                        percentage = (float)((1 / Players.Team1.Count));
+                                        percentage = (float)((1 / (float)Players.Team1.Count));
                                         checkTeams = false;
 
                                     }
                                     else if (Players.Team2.Contains(player))
                                     {
                                         playerTeam = 1;
-                                        percentage = (float)((1 / Players.Team2.Count));
+                                        percentage = (float)((1 / (float)Players.Team2.Count));
                                         checkTeams = false;
                                     }
                                     else
@@ -251,7 +275,7 @@ namespace Invasion
                         }
                         catch (Exception e)
                         {
-                            Console.WriteLine(e.Message);
+                            //Console.WriteLine(e.Message);
                         }
                     }
 
@@ -259,7 +283,7 @@ namespace Invasion
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+               // Console.WriteLine(e.Message);
             }
             
 

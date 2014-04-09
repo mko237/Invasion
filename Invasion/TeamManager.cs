@@ -76,12 +76,25 @@ namespace Invasion
             int teamsWithShips = 0;
 
             //winningTeam = teams[0];
+            for (int i = 0; i < teams.Count; i++ )//kill game is give up reaches 100
+            {
+                if(teams[i].giveUp >= 100f)
+                {
+                    //Console.WriteLine("GIve up is over 100f should end now");
+                    gameOver = true;
+                    if (i == 0)
+                        winningTeam = teams[1];
+                    else
+                        winningTeam = teams[0];
+                }
+
+            }
 
             if (!gameOver)
             {
-                for(int i = 0; i<teamShipCount.Count(); i++)
+                for (int i = 0; i < teamShipCount.Count(); i++)
                 {
-                    if(teamShipCount[i]>0)
+                    if (teamShipCount[i] > 0)
                     {
                         teamsWithShips++;
                         winningTeam = teams[i];
@@ -98,9 +111,13 @@ namespace Invasion
                 //    }
 
                 //}
+
+                gameOver = teamsWithShips == 1;
             }
 
-            gameOver = teamsWithShips == 1;         
+            
+
+                     
             if(gameOver)
             {
                 WinScreen.winTeam = winningTeam;

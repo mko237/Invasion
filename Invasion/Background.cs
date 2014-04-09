@@ -46,10 +46,10 @@ namespace Invasion
         public override void Draw(SpriteBatch spriteBatch)
         {
             
-            if (image != null)
-                spriteBatch.Draw(image, Position, null, Color.White, Orientation, Size / 2f,ObjectSize*2f,0,0);
-            else
-                Console.WriteLine("image was null");
+            //if (image != null)
+            spriteBatch.Draw(image, Position, null, Color.White, Orientation, Size / 2f,ObjectSize*2f,0,0);
+            //else
+            //    //Console.WriteLine("image was null");
 
             spriteBatch.Draw(Art.SmallStars, Position, null, Color.White, SmallOrientation, Size / 2f, ObjectSize * 2f, 0, 0);
             spriteBatch.Draw(Art.BigStars, Position, null, Color.White, BigOrientation, Size / 2f, ObjectSize * 2f, 0, 0);
