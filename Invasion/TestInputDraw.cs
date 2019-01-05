@@ -18,6 +18,7 @@ namespace Invasion
         public static string QQ = null;
         private static Random rand = new Random();
         public static string Command = "Started";
+        public static Color Color = Color.Red;
 
         public static void Update()
         {
@@ -51,7 +52,7 @@ namespace Invasion
                 //text = QQ.Replace("\r", string.Empty);
                 //text = QQ.Replace("\n", string.Empty);
                 //text = QQ.Replace("\0", string.Empty);
-                spriteBatch.DrawString(Art.Font, Command, Position, Color.Red);
+                spriteBatch.DrawString(Art.Font, Command, Position, Color);
            
         }
     }

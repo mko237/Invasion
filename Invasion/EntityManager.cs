@@ -82,15 +82,15 @@ namespace Invasion
      
         public static void newLevel()
         {
+           
             planets = new List<Planet>();
             ships = new List<Ship>();
             entities = entities.Where(x => x is Background).ToList();
-            TeamManager.Clear();
-            Players.Team1 = new List<string>();
-            Players.Team2 = new List<string>();
+            TeamManager.Clear();            
             TeamManager.colorIndex = new List<int> { 0, 1, 2, 3, 4, 5};
             TeamManager.usedColorIndexes = new List<int>();
-            LevelSpawner Level = new LevelSpawner(45);
+            LevelSpawner Level = new LevelSpawner(38);
+            GameRoot.resetClock = true;
             TeamManager.GenerateTeams(Level, 2);
             Level.Spawn();
         }

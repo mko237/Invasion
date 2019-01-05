@@ -10,7 +10,7 @@ namespace Invasion
 {
     public class LevelSpawner
     {
-        private static int NumPlanets = 0;
+        public static int NumPlanets = 0;
         private static Random rand = new Random();
         private static Vector2[] Positions;
         private static float[] sizeMultipliers;
@@ -18,8 +18,8 @@ namespace Invasion
         public static Vector2 BorderMargin = new Vector2(GameRoot.ScreenSize.X / 35, GameRoot.ScreenSize.Y / 25); 
         private static int PositionsCreated = 0;
         private const int minDistance = 30;
-        public static float maxSize = 0.9f; //determines the max size of planets
-        public static float minSize = 0.4f; //determines the min size of plaents
+        public static float maxSize = 0.96f; //determines the max size of planets
+        public static float minSize = 0.56f; //determines the min size of plaents
         public static int imageSize;
         
 

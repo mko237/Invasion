@@ -27,7 +27,7 @@ namespace Invasion
         public float productionRate;
         public float shipCount { get; set; }
         public float enemyShipCount { get; set; }
-        public Team team { get; private set; }
+        public Team team { get; set; }
         public Team invadingTeam { get; set; }
         public State state { get; set; }
         
@@ -56,7 +56,7 @@ namespace Invasion
             if (team == null)
             {
                 state = State.NEUTRAL;
-                shipCount = 10;
+                shipCount = 162.5f*(ObjectSize-.56f)+10;
             }
             else
             {
@@ -78,25 +78,59 @@ namespace Invasion
             Cue cue = GameRoot.soundBank.GetCue("Metal");
             cue.Play();
 
-            float hue1 = rand.NextFloat(0, 6);
-            float hue2 = (hue1 + rand.NextFloat(0, 2)) % 6f;
-            Color color1 = ColorUtil.HSVToColor(hue1, 0.5f, 1);
-            Color color2 = ColorUtil.HSVToColor(hue2, 0.5f, 1);
+            //float hue1 = rand.NextFloat(0, 6);
+            //float hue2 = (hue1 + rand.NextFloat(0, 2)) % 6f;
+            //Color color1 = ColorUtil.HSVToColor(hue1, 0.5f, 1);
+            //Color color2 = ColorUtil.HSVToColor(hue2, 0.5f, 1);
 
             for (int i = 0; i < (int)(60*(Math.Pow(ObjectSize,2))); i++)
             {
                 float speed = (18f * (1f - 1 / rand.NextFloat(1, 10)))*(float)(Math.Pow(ObjectSize,2));
-                var state = new ParticleState()
+                var pstate = new ParticleState()
                 {
                     Velocity = rand.NextVector2(speed, speed),
                     Type = ParticleType.Planet,
                     LengthMultiplier = 1
                 };
 
-                Color colorr = Color.Lerp(color1, color2, rand.NextFloat(0, 1));
-                GameRoot.ParticleManager.CreateParticle(Art.LineParticle, Position, color, 190f, 1.5f, state);
+                //Color colorr = Color.Lerp(color1, color2, rand.NextFloat(0, 1));
+                GameRoot.ParticleManager.CreateParticle(Art.LineParticle, Position, color, 190f, 1.5f, pstate);
             }
 
+
+        }
+        public void removeTeam()
+        {
+            
+            //if (invadingTeam != null)
+            //{
+            //    this.team = invadingTeam;
+            //    TeamManager.addPlanet(team, this);
+            //}
+            team = null;
+            state = State.NEUTRAL;
+            color = Color.White;
+            Cue cue = GameRoot.soundBank.GetCue("Metal");
+            cue.Play();
+
+            //float hue1 = rand.NextFloat(0, 6);
+            //float hue2 = (hue1 + rand.NextFloat(0, 2)) % 6f;
+            //Color color1 = ColorUtil.HSVToColor(hue1, 0.5f, 1);
+            //Color color2 = ColorUtil.HSVToColor(hue2, 0.5f, 1);
+
+            for (int i = 0; i < (int)(60 * (Math.Pow(ObjectSize, 2))); i++)
+            {
+                float speed = (18f * (1f - 1 / rand.NextFloat(1, 10))) * (float)(Math.Pow(ObjectSize, 2));
+                var pstate = new ParticleState()
+                {
+                    Velocity = rand.NextVector2(speed, speed),
+                    Type = ParticleType.Planet,
+                    LengthMultiplier = 1
+                };
+
+                //Color colorr = Color.Lerp(color1, color2, rand.NextFloat(0, 1));
+                GameRoot.ParticleManager.CreateParticle(Art.LineParticle, Position, color, 190f, 1.5f, pstate);
+            }
         }
 
         public override void Update()
@@ -133,7 +167,7 @@ namespace Invasion
             else
                 spriteBatch.Draw(image, Position, null, color, Orientation, Size / 2f, ObjectSize, 0, 0);
 
-            spriteBatch.DrawString(text, ID.ToString(), Position-centerTextOffset, Color.White,Orientation,new Vector2(0,0),ObjectSize,0,0);
+            spriteBatch.DrawString(text, ID.ToString(), Position-centerTextOffset, Color.White,Orientation,new Vector2(0,0),ObjectSize+((1-ObjectSize)*.15f),0,0);
             spriteBatch.DrawString(text, shipCount.ToString("0"), Position, Color.White, Orientation, new Vector2(0, 0), ObjectSize, 0, 0);
             
         }

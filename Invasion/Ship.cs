@@ -98,9 +98,19 @@ namespace Invasion
                 {
                     if (Destination.shipCount > 0)
                     {
-                        Destination.enemyShipCount += Value;
-                        Destination.shipCount -= Value;
                         Destination.invadingTeam = Team;
+                        Destination.enemyShipCount += Value;
+
+
+                        if (Destination.shipCount - Value < 0)
+                        {
+                            Destination.changeTeams();
+                            Destination.shipCount = Value - Destination.shipCount;
+                        }
+                        else
+                            Destination.shipCount -= Value;
+                        
+                        
                     } 
                     //create sound
                     Cue cue = GameRoot.soundBank.GetCue("Woodblock-04");

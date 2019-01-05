@@ -31,6 +31,10 @@ namespace Invasion
         //private static InputServer inputserver = new InputServer();
         public static ParticleManager<ParticleState> ParticleManager { get; private set; }
         private static Thread ServerThread = new Thread(InputServer.StartListening);
+        public static bool resetClock = false;
+        Tuple<int,int> timer = new Tuple<int,int>(0,0);
+        public static int minutes = 0;
+        public static double seconds = 0;
         
         public static BloomComponent bloom;
         AudioEngine engine;
@@ -39,18 +43,20 @@ namespace Invasion
         AudioCategory effectsCategory;
         AudioCategory musicCategory;
 
+        
+
                        
         public GameRoot()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             Instance = this;
-            //http://msdn.microsoft.com/en-us/library/dd231915%28v=xnagamestudio.31%29.aspx nores on how to load audio engine. had to add xact.dll reference located in programfiles/microsoftxna/.../win/xact.dll 
+            //http://msdn.microsoft.com/en-us/library/dd231915%28v=xnagamestudio.31%29.aspx notes on how to load audio engine. had to add xact.dll reference located in programfiles/microsoftxna/.../win/xact.dll 
             //http://xboxforums.create.msdn.com/forums/p/102228/608489.aspx how to find other audio devices.
             
             
             // Initialize audio objects.
-            engine = new AudioEngine(@"Content\Audio\Xact.xgs",TimeSpan.Zero,"{0.0.0.00000000}.{a26fe1c0-9b55-4670-a6fd-76d91685f704}");
+            engine = new AudioEngine(@"Content\Audio\Xact.xgs", TimeSpan.Zero, "{0.0.0.00000000}.{c2f67847-1f14-477e-8a90-197b0f2f1715}");
             soundBank = new SoundBank(engine, @"Content\Audio\Sound Bank.xsb");
             waveBank = new WaveBank(engine, @"Content\Audio\Wave Bank.xwb");
             
@@ -94,7 +100,7 @@ namespace Invasion
             EntityManager.Add(Background);
 
             // spawns the level and the planets
-            LevelSpawner Level = new LevelSpawner(45);
+            LevelSpawner Level = new LevelSpawner(38);
             TeamManager.GenerateTeams(Level, 2);
             Level.Spawn();
 
@@ -151,12 +157,30 @@ namespace Invasion
             musicCategory = engine.GetCategory("Music");
             effectsCategory.SetVolume(.2f);//adjust volume here
             musicCategory.SetVolume(2f);
-            
+            seconds += 0.0166667;
+            if(seconds >=60)                
+            {
+                minutes += 1;
+                seconds = 0;
+                
+            }
+            timer = new Tuple<int, int>(minutes, (int)seconds);
+            ;
+            HUD.Update(timer);
+            if (resetClock)
+            {
+                minutes = 0;
+                seconds = 0;
+                resetClock = false;
 
-            HUD.Update();
-
+            }
 
             base.Update(gameTime);
+
+            
+
+
+            
         }
 
         /// <summary>

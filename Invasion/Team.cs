@@ -17,7 +17,11 @@ namespace Invasion
         public string colorText;
         //private int totalShipCount;
         public List<Planet> planetsColonized = new List<Planet>();
-        public float giveUp = 0; 
+        public float giveUp = 0;
+        public bool isDead = false;
+        public bool gaveUp = false;
+        public bool canSendAll = true;
+        public int canSendAllDelay = 0;
 
         public Team(int id)
         {
@@ -36,10 +40,7 @@ namespace Invasion
             }           
             int index = TeamManager.colorIndex[i];
             colorText = TeamManager.Colors[index].Item1;
-            Color = TeamManager.Colors[index].Item2;
-            TeamManager.colorIndex.RemoveAt(i);
-            TeamManager.colorIndex.TrimExcess();
-            
+            Color = TeamManager.Colors[index].Item2;      
         }
 
         public Team()
@@ -76,7 +77,7 @@ namespace Invasion
                         for (int j = 0; j < i; j++) 
                         {
                             float distance = Vector2.DistanceSquared(randPosition, TeamManager.teams[j].homePlanet.Position);
-                            if (distance < (1.5f * GameRoot.ScreenSize.X / n) * (1.5f * GameRoot.ScreenSize.X / n))
+                            if (distance < GameRoot.ScreenSize.X / n * GameRoot.ScreenSize.X / n)
                             {
                                 passed = false;
                                 break;
@@ -84,7 +85,7 @@ namespace Invasion
                             else
                                 passed = true;
                         }
-                    }                   
+                    }                
                 }
 
                 team.homePlanet = new Planet(randPosition, team.Color, 1.0f, i, team);
